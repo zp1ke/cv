@@ -1,0 +1,63 @@
+%!TEX encoding = UTF-8 Unicode
+% LaTeX Template for CV/Resume
+%
+% Author:
+% Michel Atucha <miche.atucha@gmail.com>
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default
+\documentclass[11pt, a4paper]{document-format}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% Page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-concrete}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+\input{resume/\jobname/profile.tex}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[C]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Michel Atucha~~~·~~~Résumé~~~·~~~1.1.0}
+  {\thepage}
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%-------------------------------------------------------------------------------
+\input{resume/\jobname/summary.tex}
+\input{resume/\jobname/skills.tex}
+\input{resume/\jobname/experience.tex}
+\newpage
+\input{resume/\jobname/education.tex}
+\input{resume/\jobname/opensource.tex}
+
+%-------------------------------------------------------------------------------
+\end{document}
