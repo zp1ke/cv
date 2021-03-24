@@ -19,7 +19,3 @@ sh ./scripts/build-resume.sh [LANGUAGE_CODE]
 ```
 
 Supported language codes (**LANGUAGE_CODE**): es, en.
-
-## Authors
-
-* **Michel Atucha** - *Initial work*
