@@ -4,7 +4,15 @@ Resume using [LaTeX](https://www.latex-project.org/).
 
 ### Prerequisites
 
-- **xelatex** command available on system path. You can download it [here](https://miktex.org/download).
+- **xelatex** command available on system path.
+
+On Windows:
+You can download it [here](https://miktex.org/download).
+
+On Linux:
+```
+sudo apt install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+```
 
 ### Build
 
