@@ -279,6 +279,10 @@
 % Usage: \github{<github-nick>}
 \newcommand*{\github}[1]{\def\@github{#1}}
 
+% Defines writer's leetcode (optional)
+% Usage: \leetcode{<leetcode-ID>}
+\newcommand*{\leetcode}[1]{\def\@leetcode{#1}}
+
 % Defines writer's gitlab (optional)
 % Usage: \gitlab{<gitlab-nick>}
 \newcommand*{\gitlab}[1]{\def\@gitlab{#1}}
@@ -468,6 +472,12 @@
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://github.com/\@github}{\faGithubSquare\acvHeaderIconSep\@github}%
+        }%
+      \ifthenelse{\isundefined{\@leetcode}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://leetcode.com/\@leetcode}{\faCode\acvHeaderIconSep\@leetcode}%
         }%
       \ifthenelse{\isundefined{\@gitlab}}%
         {}%
