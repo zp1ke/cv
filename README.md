@@ -7,21 +7,25 @@ Resume using [LaTeX](https://www.latex-project.org/).
 - **xelatex** command available on system path.
 
 On Windows:
-You can download it [here](https://miktex.org/download).
+Download it [here](https://miktex.org/download).
 
 On Linux:
+Install with CLI.
 ```
 sudo apt install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 ```
+
+On MacOS:
+Download it [here](https://www.tug.org/mactex/mactex-download.html).
 
 ### Build
 
 On Windows:
 ```
-.\scripts\build-resume.cmd [LANG_CODE]
+.\scripts\build-resume.cmd [LANGUAGE_CODE]
 ```
 
-On Linux:
+On Linux and MacOS:
 ```
 sh ./scripts/build-resume.sh [LANGUAGE_CODE]
 ```
