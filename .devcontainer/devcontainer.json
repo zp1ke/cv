@@ -1,0 +1,20 @@
+// https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "CV Ubuntu",
+	"image": "mcr.microsoft.com/devcontainers/base:noble",
+	"features": {
+		"ghcr.io/prulloac/devcontainer-features/latex:1": {
+			"scheme": "full",
+			"mirror": "https://mirror.ctan.org/systems/texlive/tlnet/"
+		}
+	},
+	"postCreateCommand": "xelatex -v",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"james-yu.latex-workshop",
+				"redhat.vscode-yaml"
+			]
+		}
+	}
+}
