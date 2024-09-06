@@ -2,7 +2,7 @@
 
 Resume using [LaTeX](https://www.latex-project.org/).
 
-### Prerequisites
+## Prerequisites
 
 - **xelatex** command available on system path.
 
@@ -18,7 +18,7 @@ sudo apt install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 On MacOS:
 Download it [here](https://www.tug.org/mactex/mactex-download.html).
 
-### Build
+## Build
 
 On Windows:
 ```
@@ -31,3 +31,7 @@ sh ./scripts/build-resume.sh [LANGUAGE_CODE]
 ```
 
 Supported language codes (**LANGUAGE_CODE**): es, en.
+
+## Libraries
+
+- [Fontawesome](https://fontawesome.com/v4/icons/).

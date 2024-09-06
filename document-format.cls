@@ -283,6 +283,10 @@
 % Usage: \leetcode{<leetcode-ID>}
 \newcommand*{\leetcode}[1]{\def\@leetcode{#1}}
 
+% Defines writer's gravatar (optional)
+% Usage: \gravatar{<gravatar-ID>}
+\newcommand*{\gravatar}[1]{\def\@gravatar{#1}}
+
 % Defines writer's gitlab (optional)
 % Usage: \gitlab{<gitlab-nick>}
 \newcommand*{\gitlab}[1]{\def\@gitlab{#1}}
@@ -482,6 +486,12 @@
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://leetcode.com/\@leetcode}{\faCode\acvHeaderIconSep\@leetcode}%
+        }%
+      \ifthenelse{\isundefined{\@gravatar}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://gravatar.com/\@gravatar}{\faGrav\acvHeaderIconSep\@gravatar}%
         }%
       \ifthenelse{\isundefined{\@gitlab}}%
         {}%
