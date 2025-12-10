@@ -9,6 +9,16 @@ set buildPath=%parentPath%\build
 set resumeFile=%parentPath%\resume.tex
 set lang=%1
 
+REM Check if xelatex is available
+where xelatex >nul 2>&1
+if errorlevel 1 (
+  echo Error: xelatex command not found!
+  echo Please install MiKTeX or TeXLive with XeLaTeX support.
+  echo.
+  echo Download from: https://miktex.org/download
+  exit /b 1
+)
+
 REM Validate language parameter
 if "%lang%"=="" (
   echo Error: Must pass supported language as first parameter!

@@ -6,6 +6,18 @@ parentPath="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 buildPath="${parentPath}/build"
 resumeFile="${parentPath}/resume.tex"
 
+# Check if xelatex is available
+if ! command -v xelatex &> /dev/null; then
+  echo "Error: xelatex command not found!";
+  echo "Please install TeXLive or MiKTeX with XeLaTeX support.";
+  echo "";
+  echo "Installation instructions:";
+  echo "  - Linux: sudo apt install texlive-xetex texlive-fonts-recommended texlive-fonts-extra";
+  echo "  - macOS: brew install --cask mactex";
+  echo "  - Windows: Download from https://miktex.org/download";
+  exit 1;
+fi
+
 # Validate language parameter
 if [ -z "$1" ]; then
   echo "Error: Must pass supported language as first parameter!";
