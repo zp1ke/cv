@@ -17,11 +17,84 @@ const { title, description, lang = 'en' } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>
+      // Initialize theme before page renders to avoid flash
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme-preference')) {
+          return localStorage.getItem('theme-preference');
+        }
+        return 'system';
+      };
+
+      const getEffectiveTheme = (preference) => {
+        if (preference === 'system') {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        return preference;
+      };
+
+      const preference = getThemePreference();
+      const theme = getEffectiveTheme(preference);
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme-preference', preference);
+    </script>
   </head>
   <body>
     <slot />
   </body>
 </html>
+
+<script>
+  // Theme toggle functionality with system option
+  function attachThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+
+    const applyTheme = (preference) => {
+      const html = document.documentElement;
+      const effectiveTheme = preference === 'system'
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : preference;
+
+      html.classList.remove('light', 'dark');
+      html.classList.add(effectiveTheme);
+      html.setAttribute('data-theme-preference', preference);
+      localStorage.setItem('theme-preference', preference);
+    };
+
+    themeToggle.addEventListener('click', () => {
+      const html = document.documentElement;
+      const currentPreference = html.getAttribute('data-theme-preference') || 'system';
+
+      // Cycle through: system → light → dark → system
+      let newPreference;
+      if (currentPreference === 'system') {
+        newPreference = 'light';
+      } else if (currentPreference === 'light') {
+        newPreference = 'dark';
+      } else {
+        newPreference = 'system';
+      }
+
+      applyTheme(newPreference);
+    });
+
+    // Listen for system theme changes when in system mode
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', () => {
+      const currentPreference = document.documentElement.getAttribute('data-theme-preference');
+      if (currentPreference === 'system') {
+        applyTheme('system');
+      }
+    });
+  }
+
+  // Run on initial load
+  attachThemeToggle();
+
+  // Re-run after view transitions (if using Astro's view transitions)
+  document.addEventListener('astro:after-swap', attachThemeToggle);
+</script>
 
 <style is:global>
   :root {
@@ -40,6 +113,17 @@ const { title, description, lang = 'en' } = Astro.props;
     --spacing-xl: 3rem;
   }
 
+  /* Dark theme */
+  .dark {
+    --color-text: #e5e7eb;
+    --color-text-secondary: #9ca3af;
+    --color-accent: #60a5fa;
+    --color-accent-hover: #93c5fd;
+    --color-border: #374151;
+    --color-background: #111827;
+    --color-background-secondary: #1f2937;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -51,6 +135,7 @@ const { title, description, lang = 'en' } = Astro.props;
     line-height: 1.6;
     color: var(--color-text);
     background-color: var(--color-background);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -61,6 +146,7 @@ const { title, description, lang = 'en' } = Astro.props;
   a {
     color: var(--color-accent);
     text-decoration: none;
+    transition: color 0.2s ease;
   }
 
   a:hover {

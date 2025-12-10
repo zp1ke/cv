@@ -15,9 +15,55 @@ interface Props {
 const { profile, lang } = Astro.props;
 const downloadText = lang === 'es' ? 'Descargar PDF' : 'Download PDF';
 const pdfFile = `resume-${lang}.pdf`;
+const langText = lang === 'es' ? 'EN' : 'ES';
+const langUrl = lang === 'es' ? '/' : '/es/';
 ---
 
 <header class="header">
+  <div class="header-top no-print">
+    <div class="header-top-content">
+      <div class="header-controls">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">
+          <svg class="system-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <a href={langUrl} class="btn-icon" aria-label={`Switch to ${langText}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="btn-text">{langText}</span>
+        </a>
+        <a href={`/${pdfFile}`} class="btn-download" download>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          {downloadText}
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="header-content">
     <div class="header-main">
       <h1 class="name">{profile.name}</h1>
@@ -43,13 +89,6 @@ const pdfFile = `resume-${lang}.pdf`;
 
       <div class="contact-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-        </svg>
-        <a href={`tel:${profile.phone}`}>{profile.phone}</a>
-      </div>
-
-      <div class="contact-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
         </svg>
         <a href={`https://github.com/${profile.github}`} target="_blank" rel="noopener noreferrer">github.com/{profile.github}</a>
@@ -65,24 +104,99 @@ const pdfFile = `resume-${lang}.pdf`;
       </div>
     </div>
   </div>
-
-  <div class="header-actions no-print">
-    <a href={`/${pdfFile}`} class="btn-download" download>
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-        <polyline points="7 10 12 15 17 10"></polyline>
-        <line x1="12" y1="15" x2="12" y2="3"></line>
-      </svg>
-      {downloadText}
-    </a>
-  </div>
-</header>
-
-<style>
+</header><style>
   .header {
     background-color: var(--color-background-secondary);
     border-bottom: 1px solid var(--color-border);
     padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .header-top {
+    max-width: var(--max-width);
+    margin: 0 auto var(--spacing-lg);
+  }
+
+  .header-top-content {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 var(--spacing-sm);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .btn-icon:hover {
+    background-color: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  /* Theme icon visibility based on preference */
+  .btn-icon .system-icon,
+  .btn-icon .sun-icon,
+  .btn-icon .moon-icon {
+    display: none;
+  }
+
+  /* System preference */
+  :global(html[data-theme-preference="system"]) .btn-icon .system-icon {
+    display: block;
+  }
+
+  /* Light preference */
+  :global(html[data-theme-preference="light"]) .btn-icon .sun-icon {
+    display: block;
+  }
+
+  /* Dark preference */
+  :global(html[data-theme-preference="dark"]) .btn-icon .moon-icon {
+    display: block;
+  }
+
+  .btn-text {
+    line-height: 1;
+  }
+
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-accent);
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    border: none;
+    height: 2.5rem;
+  }
+
+  .btn-download:hover {
+    background-color: var(--color-accent-hover);
+    text-decoration: none;
   }
 
   .header-content {
@@ -125,31 +239,6 @@ const pdfFile = `resume-${lang}.pdf`;
     color: var(--color-accent);
   }
 
-  .header-actions {
-    max-width: var(--max-width);
-    margin: var(--spacing-md) auto 0;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--color-accent);
-    color: white;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    transition: background-color 0.2s;
-    text-decoration: none;
-  }
-
-  .btn-download:hover {
-    background-color: var(--color-accent-hover);
-    text-decoration: none;
-  }
-
   @media (max-width: 768px) {
     .name {
       font-size: 2rem;
@@ -157,6 +246,10 @@ const pdfFile = `resume-${lang}.pdf`;
 
     .contact {
       grid-template-columns: 1fr;
+    }
+
+    .btn-text {
+      display: none;
     }
   }
 </style>

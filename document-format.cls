@@ -2,7 +2,7 @@
 % Document format Class File
 %
 % Author:
-% Michel Atucha <miche.atucha@gmail.com>
+% Michel Atucha <matt@sp1ke.dev>
 %
 % Class license:
 % LPPL v1.3c (http://www.latex-project.org/lppl)
