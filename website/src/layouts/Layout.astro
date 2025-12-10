@@ -50,7 +50,7 @@ const { title, description, lang = 'en' } = Astro.props;
     const themeToggle = document.getElementById('theme-toggle');
     if (!themeToggle) return;
 
-    const applyTheme = (preference) => {
+    const applyTheme = (preference: 'system' | 'light' | 'dark') => {
       const html = document.documentElement;
       const effectiveTheme = preference === 'system'
         ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
@@ -67,7 +67,7 @@ const { title, description, lang = 'en' } = Astro.props;
       const currentPreference = html.getAttribute('data-theme-preference') || 'system';
 
       // Cycle through: system → light → dark → system
-      let newPreference;
+      let newPreference: 'system' | 'light' | 'dark';
       if (currentPreference === 'system') {
         newPreference = 'light';
       } else if (currentPreference === 'light') {
