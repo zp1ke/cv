@@ -4,7 +4,7 @@ Professional CV/Resume with dual outputs:
 - **📄 PDF**: LaTeX-generated professional resumes in English and Spanish
 - **🌐 Website**: Modern portfolio hosted on [GitHub Pages](https://zp1ke.github.io/cv/)
 
-Both formats are automatically built and deployed via GitHub Actions on every push to master.
+Both formats are automatically built and deployed via GitHub Actions on every push to main.
 
 ## Quick Links
 

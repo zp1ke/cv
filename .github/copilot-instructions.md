@@ -5,7 +5,7 @@ This is a personal CV/Resume project with dual outputs:
 1. **PDF Resumes**: Professional LaTeX-generated PDFs in English and Spanish using XeLaTeX compiler
 2. **Web Portfolio**: Modern Astro-based static website deployed to GitHub Pages with PDF download links
 
-Both outputs are automatically built and deployed via GitHub Actions on every push to master.
+Both outputs are automatically built and deployed via GitHub Actions on every push to main.
 
 ## Project Structure
 
