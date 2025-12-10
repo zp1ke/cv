@@ -1,4 +1,32 @@
+# LaTeX build artifacts
 *.aux
 *.out
 *.pdf
-build
+*.log
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*~
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+.idea/
+
+# Node.js (if using)
+node_modules/
+dist/
