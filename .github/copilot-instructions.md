@@ -1,9 +1,15 @@
 # GitHub Copilot Instructions for CV Project
 
 ## Project Overview
-This is a personal CV/Resume project built with LaTeX. It generates professional PDF resumes in multiple languages (English and Spanish) using the XeLaTeX compiler.
+This is a personal CV/Resume project with dual outputs:
+1. **PDF Resumes**: Professional LaTeX-generated PDFs in English and Spanish using XeLaTeX compiler
+2. **Web Portfolio**: Modern Astro-based static website deployed to GitHub Pages with PDF download links
+
+Both outputs are automatically built and deployed via GitHub Actions on every push to master.
 
 ## Project Structure
+
+### LaTeX CV (PDF Generation)
 - `resume.tex` - Main LaTeX document template
 - `document-format.cls` - Custom document class defining CV structure and styling
 - `fontawesome.sty` - FontAwesome icon package for social media icons
@@ -14,15 +20,36 @@ This is a personal CV/Resume project built with LaTeX. It generates professional
 - `build/` - Temporary build directory (ignored by git)
 - Generated PDFs: `resume-en.pdf`, `resume-es.pdf`
 
-## Content Files (per language)
-Each language directory contains modular content files:
+### Astro Website
+- `website/` - Astro static site project
+  - `src/data/` - CV content in JSON format (cv-en.json, cv-es.json)
+  - `src/components/` - Reusable Astro components
+  - `src/layouts/` - Page layouts
+  - `src/pages/` - Routes (index.astro for English, es/index.astro for Spanish)
+  - `public/` - Static assets (favicon, PDFs copied during build)
+  - `astro.config.mjs` - Astro configuration
+  - `package.json` - Node.js dependencies
+
+### CI/CD
+- `.github/workflows/deploy.yml` - GitHub Actions workflow for building and deploying both PDFs and website
+
+## Content Files
+
+### LaTeX Content (per language)
+Each language directory (`resume/en/`, `resume/es/`) contains modular content files:
 1. `profile.tex` - Personal information, contact details, social links
 2. `summary.tex` - Professional summary/objective
 3. `skills.tex` - Technical skills, languages, and competencies
 4. `experience.tex` - Work experience entries
 5. `education.tex` - Educational background
 6. `opensource.tex` - Open source contributions and projects
-7. `madewith.tex` - Footer attribution
+
+### Website Content
+Content is maintained separately in JSON format:
+- `website/src/data/cv-en.json` - English version
+- `website/src/data/cv-es.json` - Spanish version
+
+**IMPORTANT**: LaTeX and JSON content must be kept in sync manually. When updating CV content, update both formats.
 
 ## Key Technologies
 - **LaTeX**: Document preparation system
@@ -62,78 +89,176 @@ Common macros used in this project:
 - Keep both language versions in sync structurally
 - Use meaningful commit messages for content updates
 
-## Building the Resume
+## Building the Project
 
 ### Prerequisites
-- XeLaTeX compiler installed
-- TeXLive distribution recommended
+- **For PDFs**: XeLaTeX compiler (TeXLive distribution recommended)
+- **For Website**: Node.js 18+ and npm
 
 ### Build Commands
-**Linux/MacOS:**
+
+**LaTeX PDFs (Linux/MacOS):**
 ```bash
 sh ./scripts/build-resume.sh en  # English version
 sh ./scripts/build-resume.sh es  # Spanish version
 ```
 
-**Windows:**
+**LaTeX PDFs (Windows):**
 ```cmd
 .\scripts\build-resume.cmd en    # English version
 .\scripts\build-resume.cmd es    # Spanish version
 ```
 
+**Website (Local Development):**
+```bash
+cd website
+npm install          # First time only
+npm run dev          # Development server at http://localhost:4321
+npm run build        # Production build
+```
+
 ### Build Process
+
+**PDF Build:**
 1. Validates language parameter (en or es)
 2. Creates temporary build directory
 3. Compiles LaTeX to PDF using XeLaTeX
 4. Copies PDF to project root as `resume-{lang}.pdf`
 5. Cleans up temporary files
 
+**Website Build (GitHub Actions):**
+1. Builds both English and Spanish PDFs
+2. Installs Node.js dependencies
+3. Builds Astro static site
+4. Copies PDFs to website dist folder
+5. Deploys to GitHub Pages
+
 ## Common Tasks
 
-### Adding New Experience
+### Updating CV Content
+
+**Important**: When updating CV content, you must update BOTH formats:
+
+1. **Update LaTeX files** in `resume/{lang}/` (for PDF output)
+2. **Update JSON files** in `website/src/data/cv-{lang}.json` (for web output)
+3. Commit both changes together
+
+**Example workflow:**
+```bash
+# Edit LaTeX
+vim resume/en/experience.tex
+
+# Edit corresponding JSON
+vim website/src/data/cv-en.json
+
+# Commit together
+git add resume/en/experience.tex website/src/data/cv-en.json
+git commit -m "Add new work experience"
+git push  # Triggers automatic deployment
+```
+
+### Adding New Work Experience
 1. Open `resume/{lang}/experience.tex`
 2. Add new `\cventry` block at the top (reverse chronological)
-3. Include: project/company, location, dates, responsibilities
-4. Update both English and Spanish versions
-5. Keep formatting consistent with existing entries
+3. Include: company, location, dates, achievement-focused bullets
+4. Update `website/src/data/cv-{lang}.json` with same content
+5. Update both English and Spanish versions
+6. Keep formatting consistent with existing entries
 
 ### Updating Skills
 1. Edit `resume/{lang}/skills.tex`
-2. Maintain skill categories (programming languages, frameworks, databases)
-3. Use star ratings: `\faStar` (filled), `\faStarHalfEmpty` (half), `\faStarO` (empty)
+2. Update `website/src/data/cv-{lang}.json` skills section
+3. Maintain skill categories consistently across formats
 4. Keep skills relevant and up-to-date
 
 ### Adding Open Source Projects
 1. Edit `resume/{lang}/opensource.tex`
-2. Add `\cventry` with role, project name, link, dates
-3. Include brief description and impact
-4. Maintain reverse chronological order
+2. Update `website/src/data/cv-{lang}.json` opensource array
+3. Add `\cventry` with role, project name, link, dates
+4. Include achievement-focused descriptions
+5. Maintain reverse chronological order
 
 ### Updating Personal Information
 1. Edit `resume/{lang}/profile.tex`
-2. Update contact details, social links, or tagline
-3. Ensure consistency across all language versions
+2. Update `website/src/data/cv-{lang}.json` profile section
+3. Ensure consistency across all language versions and formats
+
+### Website-Specific Updates
+
+**Styling changes:**
+- Edit component files in `website/src/components/`
+- Modify layout in `website/src/layouts/Layout.astro`
+- Adjust CSS variables in Layout.astro for color scheme
+
+**Adding new pages:**
+- Create new `.astro` files in `website/src/pages/`
+
+**Updating metadata:**
+- Edit `website/astro.config.mjs` for site configuration
+
+## Deployment
+
+### Automatic Deployment (GitHub Actions)
+- Triggered on every push to `master` branch
+- Builds both PDFs and website
+- Deploys to GitHub Pages automatically
+- No manual intervention required
+
+### Custom Domain Setup
+
+1. **Create CNAME file:**
+   ```bash
+   echo "yourdomain.com" > website/public/CNAME
+   ```
+
+2. **Update Astro config** (`website/astro.config.mjs`):
+   ```js
+   export default defineConfig({
+     site: 'https://yourdomain.com',
+     base: '/',  // Change from '/cv' to '/'
+   });
+   ```
+
+3. **Configure DNS records** (at your domain provider):
+   - For apex domain: Add A records pointing to GitHub Pages IPs
+   - For subdomain: Add CNAME record pointing to `zp1ke.github.io`
+
+4. **Enable in GitHub Settings:**
+   - Go to Settings → Pages
+   - Enter custom domain
+   - Enable HTTPS
+
+5. **Commit and push:**
+   ```bash
+   git add website/public/CNAME website/astro.config.mjs
+   git commit -m "Configure custom domain"
+   git push
+   ```
+
+See `website/README.md` for detailed DNS configuration.
 
 ## Best Practices for AI Assistance
 
 ### When Editing Content
-- Always specify which language version to update (or update both)
+- Always specify which format to update (LaTeX, JSON, or both)
+- Update both LaTeX and JSON when changing CV content
 - Maintain professional tone and concise descriptions
-- Use action verbs for experience descriptions
+- Use action verbs and achievement-focused language
 - Keep technical terms in English even in Spanish version
-- Verify LaTeX syntax is correct before suggesting changes
+- Verify LaTeX syntax and JSON validity before suggesting changes
 
 ### When Adding Features
-- Follow existing document class structure
-- Test changes by compiling both language versions
-- Ensure new features work with XeLaTeX
-- Maintain responsive design for different page sizes
+- **LaTeX**: Follow existing document class structure, test with XeLaTeX
+- **Website**: Use Astro components, maintain responsive design
+- Test changes in both environments before committing
+- Ensure new features work across both English and Spanish versions
 
 ### When Debugging
-- Check for common LaTeX errors: unclosed braces, missing packages, undefined commands
+- **LaTeX**: Check for unclosed braces, missing packages, undefined commands
+- **Website**: Validate JSON syntax, check component imports
 - Verify file paths are correct relative to project root
-- Ensure all referenced files exist in both language directories
-- Test compilation with verbose output for detailed error messages
+- Test compilation/build with verbose output for detailed error messages
+- Check GitHub Actions logs for deployment issues
 
 ## Color Scheme
 - Primary color: `awesome-concrete` (defined in resume.tex)

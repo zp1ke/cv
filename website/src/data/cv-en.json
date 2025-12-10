@@ -1,0 +1,151 @@
+{
+  "lang": "en",
+  "profile": {
+    "name": "Michel Atucha",
+    "title": "Senior Full-Stack Developer · Java · Flutter · React",
+    "location": "Ecuador",
+    "email": "miche.atucha@gmail.com",
+    "phone": "+593 93 941 9677",
+    "github": "zp1ke",
+    "linkedin": "zp1ke"
+  },
+  "summary": "Senior Full-Stack Developer with 11+ years building scalable enterprise applications and SaaS platforms. Founded and scaled TuFacturero, a nationwide electronic invoicing platform serving thousands of daily active users across Ecuador. Currently leading EcuaFirma development at Touwolf, delivering mission-critical digital signature solutions for financial institutions and government entities. Expert in Java/Spring Boot backends, Flutter mobile apps, and React frontends. Seeking remote opportunities worldwide to leverage expertise in fintech, e-government, and high-scale distributed systems.",
+  "skills": {
+    "core": "Java (Spring Boot, Hibernate, JPA) · Dart (Flutter, BLoC) · JavaScript/TypeScript (React, Node.js) · SQL (PostgreSQL, MySQL) · REST APIs · Microservices",
+    "cloud": "AWS (EC2, S3, RDS) · Docker · CI/CD · Git · Linux",
+    "languages": "Spanish (Native) · English (Professional Working Proficiency)",
+    "soft": "Technical Leadership · Solution Architecture · Remote Collaboration · Product Ownership"
+  },
+  "experience": [
+    {
+      "title": "Senior Full-Stack Developer",
+      "company": "Touwolf Technologies S.A.",
+      "location": "Quito, Ecuador (Remote)",
+      "dates": "Aug. 2020 - Present",
+      "achievements": [
+        "Lead development of EcuaFirma, Ecuador's digital signature platform serving thousands of daily active users across financial and government sectors",
+        "Architected Spring Boot microservices backend with PostgreSQL, handling high-volume cryptographic operations and SRI (tax authority) integrations",
+        "Built cross-platform Flutter mobile app enabling secure document signing with biometric authentication and offline capabilities",
+        "Implemented PKI infrastructure and certificate management system ensuring compliance with national digital signature regulations",
+        "Reduced document processing time by 60% through optimized PDF rendering pipeline and asynchronous job queuing"
+      ]
+    },
+    {
+      "title": "Founder & Lead Developer",
+      "company": "TuFacturero (Self-Founded SaaS)",
+      "location": "Ecuador",
+      "dates": "Apr. 2017 - Present",
+      "achievements": [
+        "Founded and scaled nationwide electronic invoicing SaaS platform serving thousands of businesses across Ecuador",
+        "Built multi-tenant architecture supporting 5,000+ active businesses processing millions of tax-compliant invoices monthly",
+        "Developed real-time SRI (tax authority) integration ensuring 99.9% uptime for mission-critical invoicing operations",
+        "Designed automated billing system and subscription management handling recurring payments and usage-based pricing",
+        "Achieved profitability within first year through direct sales and strategic partnerships with accounting firms"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Logistiks",
+      "location": "Ecuador (Remote)",
+      "dates": "Apr. 2019 - Present",
+      "achievements": [
+        "Developed Flutter-based logistics tracking mobile app with real-time GPS integration and route optimization",
+        "Built Spring Boot backend APIs managing fleet operations, delivery scheduling, and driver performance analytics",
+        "Implemented offline-first architecture enabling continued operations in areas with poor connectivity"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Telemédico",
+      "location": "Ecuador",
+      "dates": "Jun. 2019 - Mar. 2022",
+      "achievements": [
+        "Built telemedicine platform connecting patients with healthcare providers through secure video consultations",
+        "Developed Flutter mobile apps (iOS/Android) with integrated payment processing and prescription management",
+        "Implemented HIPAA-compliant data handling and encryption for protected health information (PHI)"
+      ]
+    },
+    {
+      "title": "Full-Stack Engineer",
+      "company": "Cuballama",
+      "location": "Ecuador",
+      "dates": "Apr. 2014 - Feb. 2017",
+      "achievements": [
+        "First engineering hire building VoIP platform connecting 50,000+ users making international calls to Cuba",
+        "Developed iOS app with Objective-C integrating baresip SIP stack for high-quality voice calls",
+        "Built Spring/Hibernate backend managing call routing, billing, and real-time balance updates",
+        "Implemented PayPal payment integration and automated recharge system processing thousands of daily transactions"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Engineering in Computer Science",
+      "institution": "University of Computer Sciences",
+      "location": "Havana, Cuba",
+      "dates": "2008 - 2014"
+    }
+  ],
+  "opensource": [
+    {
+      "title": "Salert - Dart Financial Calculations Library",
+      "role": "Author & Maintainer",
+      "url": "https://github.com/zp1ke/salert",
+      "dates": "May 2024 - Present",
+      "achievements": [
+        "Built high-precision financial calculation library handling discounts, multi-tier taxation, and decimal accuracy for commerce apps",
+        "Actively used in production by eQon mobile app for real-time sales calculations",
+        "Designed type-safe API with comprehensive test coverage to prevent floating-point errors in monetary operations"
+      ]
+    },
+    {
+      "title": "Bridje Framework - Modular Java Development Framework",
+      "role": "Core Contributor",
+      "url": "https://github.com/touwolf/bridje-framework",
+      "dates": "May 2016 - Sep. 2021",
+      "achievements": [
+        "Contributed to dependency injection, IoC container, and ORM modules used across multiple enterprise Java projects",
+        "Implemented annotation-based configuration system reducing boilerplate code by 40% compared to XML configs",
+        "Designed and developed RESTful web services module with automatic OpenAPI documentation generation"
+      ]
+    },
+    {
+      "title": "JamboDB - Custom Database Storage Engine",
+      "role": "Core Developer",
+      "url": "https://github.com/jambodb/jambodb-storage",
+      "dates": "Dec. 2021 - Aug. 2022",
+      "achievements": [
+        "Architected low-level storage engine with B-tree indexing and ACID transaction support for experimental NoSQL database",
+        "Implemented memory-mapped file I/O and custom serialization protocol optimizing read/write performance"
+      ]
+    },
+    {
+      "title": "Dependencies Checker - IntelliJ IDEA Plugin",
+      "role": "Plugin Developer",
+      "url": "https://github.com/zp1ke/deps-checker",
+      "dates": "Jan. 2017 - Apr. 2017",
+      "achievements": [
+        "Developed IntelliJ IDEA plugin scanning Maven/Gradle projects for outdated dependencies with one-click updates",
+        "Published to JetBrains Plugin Marketplace, automating dependency management for Java development teams"
+      ]
+    },
+    {
+      "title": "Jodit WYSIWYG Editor (5.8k+ stars)",
+      "role": "Accepted Contributor",
+      "url": "https://github.com/xdan/jodit",
+      "dates": "Jun. 2018 - Jul. 2018",
+      "achievements": [
+        "Contributed complete Spanish localization (280+ strings) merged into official repository, expanding global reach"
+      ]
+    },
+    {
+      "title": "PayPal Cordova Plugin (1.1k+ stars)",
+      "role": "Accepted Contributor",
+      "url": "https://github.com/paypal/PayPal-Cordova-Plugin",
+      "dates": "Oct. 2014 - Nov. 2014",
+      "achievements": [
+        "Enhanced PayPal SDK by adding invoice number tracking to payment API, improving transaction reconciliation capabilities"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Section from '@/components/Section.astro';
+import Experience from '@/components/Experience.astro';
+import cvData from '@data/cv-en.json';
+
+const { profile, summary, skills, experience, education, opensource } = cvData;
+---
+
+<Layout
+  title={`${profile.name} - ${profile.title}`}
+  description={summary}
+  lang="en"
+>
+  <Header profile={profile} lang="en" />
+
+  <main class="main">
+    <div class="container">
+      <!-- Summary -->
+      <Section title="Professional Summary">
+        <p class="summary">{summary}</p>
+      </Section>
+
+      <!-- Skills -->
+      <Section title="Technical Skills">
+        <div class="skills">
+          <div class="skill-group">
+            <strong>Core Stack:</strong> {skills.core}
+          </div>
+          <div class="skill-group">
+            <strong>Cloud & DevOps:</strong> {skills.cloud}
+          </div>
+          <div class="skill-group">
+            <strong>Languages:</strong> {skills.languages}
+          </div>
+          <div class="skill-group">
+            <strong>Soft Skills:</strong> {skills.soft}
+          </div>
+        </div>
+      </Section>
+
+      <!-- Experience -->
+      <Section title="Work Experience">
+        {experience.map((item) => (
+          <Experience item={item} />
+        ))}
+      </Section>
+
+      <!-- Education -->
+      <Section title="Education">
+        {education.map((item) => (
+          <article class="education">
+            <div class="education-header">
+              <div>
+                <h3 class="education-degree">{item.degree}</h3>
+                <p class="education-institution">{item.institution} • {item.location}</p>
+              </div>
+              <p class="education-dates">{item.dates}</p>
+            </div>
+          </article>
+        ))}
+      </Section>
+
+      <!-- Open Source -->
+      <Section title="Open Source Contributions">
+        {opensource.map((item) => (
+          <article class="opensource">
+            <div class="opensource-header">
+              <div>
+                <h3 class="opensource-title">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                </h3>
+                <p class="opensource-role">{item.role} • {item.dates}</p>
+              </div>
+            </div>
+            <ul class="achievements">
+              {item.achievements.map((achievement) => (
+                <li>{achievement}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </Section>
+    </div>
+  </main>
+
+  <footer class="footer no-print">
+    <div class="container">
+      <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
+      <p>
+        <a href="/cv/es/">Español</a> |
+        <a href="https://github.com/{profile.github}/cv" target="_blank" rel="noopener noreferrer">View Source</a>
+      </p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .summary {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .skill-group {
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .skill-group strong {
+    color: var(--color-text);
+  }
+
+  .education {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .education-degree {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .education-institution {
+    color: var(--color-text-secondary);
+  }
+
+  .education-dates {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .opensource {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .opensource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .opensource-title {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .opensource-title a {
+    color: var(--color-accent);
+  }
+
+  .opensource-role {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .achievements {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .achievements li {
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .footer {
+    background-color: var(--color-background-secondary);
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin-top: var(--spacing-xl);
+  }
+
+  .footer .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .footer p {
+    margin: var(--spacing-xs) 0;
+  }
+
+  .footer a {
+    color: var(--color-accent);
+    margin: 0 var(--spacing-xs);
+  }
+
+  @media (max-width: 768px) {
+    .education-header {
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .education-dates {
+      white-space: normal;
+    }
+  }
+</style>
