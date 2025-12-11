@@ -36,8 +36,8 @@
       "location": "Ecuador",
       "dates": "Abr. 2017 - Actual",
       "achievements": [
-        "Fundé y escalé plataforma SaaS nacional de facturación electrónica sirviendo a miles de negocios en Ecuador",
-        "Construí arquitectura multi-tenant soportando 5,000+ negocios activos procesando millones de facturas conformes mensualmente",
+        "Fundé y escalé plataforma SaaS nacional de facturación electrónica que sirve a miles de negocios en Ecuador",
+        "Construí arquitectura multi-tenant que soporta 5,000+ negocios activos procesando millones de facturas fiscalmente válidas mensualmente",
         "Desarrollé integración en tiempo real con SRI asegurando 99.9% uptime para operaciones críticas de facturación",
         "Diseñé sistema de facturación automatizada y gestión de suscripciones manejando pagos recurrentes y precios basados en uso",
         "Alcancé rentabilidad en el primer año mediante ventas directas y alianzas estratégicas con firmas contables"
@@ -88,36 +88,36 @@
   ],
   "androidapps": [
     {
-      "name": "AquaPact - Rastreador de Consumo de Agua",
-      "role": "Desarrollador y Editor",
+      "name": "AquaPact - Registro de Consumo de Agua",
+      "role": "Desarrollador y Publicador",
       "url": "https://play.google.com/store/apps/details?id=org.zp1ke.aquapact",
       "dates": "Feb. 2025 - Actual",
       "achievements": [
-        "Desarrollé app de seguimiento de agua basada en Flutter con objetivos personalizables, recordatorios inteligentes y tablero estadístico de 7 días",
-        "Implementé widget de pantalla de inicio Android para registro rápido de consumo de agua sin abrir la app",
-        "Diseñé interfaz amigable con configuración de horarios de despertar/dormir y funciones de seguimiento de progreso diario"
+        "Desarrollé app de seguimiento de hidratación en Flutter con objetivos personalizables, recordatorios inteligentes y panel de estadísticas de 7 días",
+        "Implementé widget para la pantalla de inicio de Android que permite registrar el consumo de agua sin abrir la app",
+        "Diseñé interfaz intuitiva con configuración de horarios de sueño y funciones de seguimiento del progreso diario"
       ]
     },
     {
-      "name": "MineSweeper - Juego de Puzzle Clásico",
-      "role": "Desarrollador y Editor",
+      "name": "MineSweeper - Buscaminas Clásico",
+      "role": "Desarrollador y Publicador",
       "url": "https://play.google.com/store/apps/details?id=com.h4j4x.minesweeper",
       "dates": "Jun. 2022 - Actual",
       "achievements": [
-        "Desarrollé juego clásico Buscaminas basado en Flutter con UI moderna, tamaños de tablero personalizables (6x6 a 20x20) y densidad de minas variable",
-        "Integré Google Play Games Services para tablas de clasificación globales permitiendo a jugadores competir mundialmente con mejores puntajes y tiempos",
-        "Implementé múltiples temas con soporte de modo oscuro/claro, animaciones fluidas y capacidades de juego offline"
+        "Desarrollé el clásico juego Buscaminas en Flutter con interfaz moderna, tableros personalizables (6x6 a 20x20) y densidad de minas variable",
+        "Integré Google Play Games Services con tablas de clasificación globales que permiten a los jugadores competir a nivel mundial",
+        "Implementé múltiples temas con modo oscuro/claro, animaciones fluidas y modo de juego sin conexión"
       ]
     },
     {
       "name": "TeditoX - Editor de Texto Plano",
-      "role": "Desarrollador y Editor",
+      "role": "Desarrollador y Publicador",
       "url": "https://play.google.com/store/apps/details?id=org.zp1ke.teditox",
       "dates": "Sep. 2025 - Actual",
       "achievements": [
-        "Desarrollé editor de texto basado en Flutter con diseño Material 3 soportando múltiples codificaciones (UTF-8, UTF-16, ISO-8859-1) y formatos de fin de línea",
-        "Implementé deshacer/rehacer ilimitado con gestión inteligente de memoria, números de línea y contadores en tiempo real de caracteres/palabras/líneas",
-        "Diseñé arquitectura enfocada en privacidad con todos los archivos almacenados localmente, sin permisos de internet y recuperación automática ante fallos"
+        "Desarrollé editor de texto en Flutter con diseño Material 3 compatible con múltiples codificaciones (UTF-8, UTF-16, ISO-8859-1) y formatos de fin de línea",
+        "Implementé deshacer/rehacer ilimitado con gestión inteligente de memoria, numeración de líneas y contadores en tiempo real",
+        "Diseñé arquitectura centrada en privacidad con almacenamiento local, sin permisos de internet y recuperación automática ante fallos"
       ]
     }
   ],
