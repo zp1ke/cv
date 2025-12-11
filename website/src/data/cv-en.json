@@ -11,8 +11,8 @@
   },
   "summary": "Senior Full-Stack Developer with 11+ years building scalable enterprise applications and SaaS platforms. Founded and scaled TuFacturero, a nationwide electronic invoicing platform serving thousands of daily active users across Ecuador. Currently leading EcuaFirma development at Touwolf, delivering mission-critical digital signature solutions for financial institutions and government entities. Expert in Java/Spring Boot backends, Flutter mobile apps, and React frontends. Seeking remote opportunities worldwide to leverage expertise in fintech, e-government, and high-scale distributed systems.",
   "skills": {
-    "core": "Java (Spring Boot, Hibernate, JPA) · Dart (Flutter, BLoC) · JavaScript/TypeScript (React, Node.js) · SQL (PostgreSQL, MySQL) · REST APIs · Microservices",
-    "cloud": "AWS (EC2, S3, RDS) · Docker · CI/CD · Git · Linux",
+    "core": "Java (Spring Boot, Hibernate, JPA) · Dart (Flutter) · JavaScript/TypeScript (React, Node.js) · SQL (PostgreSQL, MySQL) · REST APIs · Microservices",
+    "cloud": "AWS (S3, Rekognition, SES) · Docker · CI/CD · Git · Linux",
     "languages": "Spanish (Native) · English (Professional Working Proficiency)",
     "soft": "Technical Leadership · Solution Architecture · Remote Collaboration · Product Ownership"
   },
@@ -84,6 +84,41 @@
       "institution": "University of Computer Sciences",
       "location": "Havana, Cuba",
       "dates": "2008 - 2014"
+    }
+  ],
+  "androidapps": [
+    {
+      "name": "AquaPact - Water Intake Tracker",
+      "role": "Developer & Publisher",
+      "url": "https://play.google.com/store/apps/details?id=org.zp1ke.aquapact",
+      "dates": "Feb. 2025 - Present",
+      "achievements": [
+        "Built Flutter-based water tracking app with customizable hydration goals, smart reminders, and 7-day statistics dashboard",
+        "Implemented Android home screen widget for quick water intake logging without opening the app",
+        "Designed user-friendly interface with wake/sleep time configuration and daily progress tracking features"
+      ]
+    },
+    {
+      "name": "MineSweeper - Classic Puzzle Game",
+      "role": "Developer & Publisher",
+      "url": "https://play.google.com/store/apps/details?id=com.h4j4x.minesweeper",
+      "dates": "Jun. 2022 - Present",
+      "achievements": [
+        "Developed Flutter-based classic Minesweeper game with modern UI, customizable board sizes (6x6 to 20x20), and variable mine density",
+        "Integrated Google Play Games Services for global leaderboards enabling players to compete worldwide with best scores and times",
+        "Implemented multiple themes with dark/light mode support, smooth animations, and offline play capabilities"
+      ]
+    },
+    {
+      "name": "TeditoX - Plain Text Editor",
+      "role": "Developer & Publisher",
+      "url": "https://play.google.com/store/apps/details?id=org.zp1ke.teditox",
+      "dates": "Sep. 2025 - Present",
+      "achievements": [
+        "Built Flutter-based text editor with Material 3 design supporting multiple encodings (UTF-8, UTF-16, ISO-8859-1) and line ending formats",
+        "Implemented unlimited undo/redo with intelligent memory management, line numbers, and real-time character/word/line counters",
+        "Designed privacy-first architecture with all files stored locally, no internet permissions, and automatic crash recovery"
+      ]
     }
   ],
   "opensource": [

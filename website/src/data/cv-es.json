@@ -11,8 +11,8 @@
   },
   "summary": "Senior Full-Stack Developer con más de 11 años construyendo aplicaciones empresariales escalables y plataformas SaaS. Fundé y escalé TuFacturero, plataforma nacional de facturación electrónica que sirve a miles de usuarios activos diarios en Ecuador. Actualmente liderando el desarrollo de EcuaFirma en Touwolf, entregando soluciones de firma digital críticas para instituciones financieras y entidades gubernamentales. Experto en backends Java/Spring Boot, aplicaciones móviles Flutter y frontends React. Buscando oportunidades remotas a nivel mundial para aprovechar experiencia en fintech, e-gobierno y sistemas distribuidos de alta escala.",
   "skills": {
-    "core": "Java (Spring Boot, Hibernate, JPA) · Dart (Flutter, BLoC) · JavaScript/TypeScript (React, Node.js) · SQL (PostgreSQL, MySQL) · REST APIs · Microservicios",
-    "cloud": "AWS (EC2, S3, RDS) · Docker · CI/CD · Git · Linux",
+    "core": "Java (Spring Boot, Hibernate, JPA) · Dart (Flutter) · JavaScript/TypeScript (React, Node.js) · SQL (PostgreSQL, MySQL) · REST APIs · Microservicios",
+    "cloud": "AWS (S3, Rekognition, SES) · Docker · CI/CD · Git · Linux",
     "languages": "Español (Nativo) · Inglés (Profesional)",
     "soft": "Liderazgo Técnico · Arquitectura de Soluciones · Colaboración Remota · Product Ownership"
   },
@@ -84,6 +84,41 @@
       "institution": "Universidad de Ciencias Informáticas",
       "location": "La Habana, Cuba",
       "dates": "2008 - 2014"
+    }
+  ],
+  "androidapps": [
+    {
+      "name": "AquaPact - Rastreador de Consumo de Agua",
+      "role": "Desarrollador y Editor",
+      "url": "https://play.google.com/store/apps/details?id=org.zp1ke.aquapact",
+      "dates": "Feb. 2025 - Actual",
+      "achievements": [
+        "Desarrollé app de seguimiento de agua basada en Flutter con objetivos personalizables, recordatorios inteligentes y tablero estadístico de 7 días",
+        "Implementé widget de pantalla de inicio Android para registro rápido de consumo de agua sin abrir la app",
+        "Diseñé interfaz amigable con configuración de horarios de despertar/dormir y funciones de seguimiento de progreso diario"
+      ]
+    },
+    {
+      "name": "MineSweeper - Juego de Puzzle Clásico",
+      "role": "Desarrollador y Editor",
+      "url": "https://play.google.com/store/apps/details?id=com.h4j4x.minesweeper",
+      "dates": "Jun. 2022 - Actual",
+      "achievements": [
+        "Desarrollé juego clásico Buscaminas basado en Flutter con UI moderna, tamaños de tablero personalizables (6x6 a 20x20) y densidad de minas variable",
+        "Integré Google Play Games Services para tablas de clasificación globales permitiendo a jugadores competir mundialmente con mejores puntajes y tiempos",
+        "Implementé múltiples temas con soporte de modo oscuro/claro, animaciones fluidas y capacidades de juego offline"
+      ]
+    },
+    {
+      "name": "TeditoX - Editor de Texto Plano",
+      "role": "Desarrollador y Editor",
+      "url": "https://play.google.com/store/apps/details?id=org.zp1ke.teditox",
+      "dates": "Sep. 2025 - Actual",
+      "achievements": [
+        "Desarrollé editor de texto basado en Flutter con diseño Material 3 soportando múltiples codificaciones (UTF-8, UTF-16, ISO-8859-1) y formatos de fin de línea",
+        "Implementé deshacer/rehacer ilimitado con gestión inteligente de memoria, números de línea y contadores en tiempo real de caracteres/palabras/líneas",
+        "Diseñé arquitectura enfocada en privacidad con todos los archivos almacenados localmente, sin permisos de internet y recuperación automática ante fallos"
+      ]
     }
   ],
   "opensource": [
