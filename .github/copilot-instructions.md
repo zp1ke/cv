@@ -33,6 +33,9 @@ Both outputs are automatically built and deployed via GitHub Actions on every pu
 ### CI/CD
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for building and deploying both PDFs and website
 
+### InfoJobs Conversion
+- `resume/infojobs.md` - Text file with Spanish CV content formatted for InfoJobs profile updates. This file must be manually kept in sync with updates to the CV.
+
 ## Content Files
 
 ### LaTeX Content (per language)
@@ -137,11 +140,12 @@ npm run build        # Production build
 
 ### Updating CV Content
 
-**Important**: When updating CV content, you must update BOTH formats:
+**Important**: When updating CV content, you must update ALL formats:
 
 1. **Update LaTeX files** in `resume/{lang}/` (for PDF output)
 2. **Update JSON files** in `website/src/data/cv-{lang}.json` (for web output)
-3. Commit both changes together
+3. **Update resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
+4. Commit all changes together
 
 **Example workflow:**
 ```bash
@@ -151,8 +155,11 @@ vim resume/en/experience.tex
 # Edit corresponding JSON
 vim website/src/data/cv-en.json
 
+# Edit InfoJobs file (if applicable)
+vim resume/infojobs.md
+
 # Commit together
-git add resume/en/experience.tex website/src/data/cv-en.json
+git add resume/en/experience.tex website/src/data/cv-en.json resume/infojobs.md
 git commit -m "Add new work experience"
 git push  # Triggers automatic deployment
 ```
@@ -240,8 +247,8 @@ See `website/README.md` for detailed DNS configuration.
 ## Best Practices for AI Assistance
 
 ### When Editing Content
-- Always specify which format to update (LaTeX, JSON, or both)
-- Update both LaTeX and JSON when changing CV content
+- Always specify which format to update (LaTeX, JSON, resume/infojobs.md, or all)
+- Update LaTeX, JSON, and resume/infojobs.md when changing CV content
 - Maintain professional tone and concise descriptions
 - Use action verbs and achievement-focused language
 - Keep technical terms in English even in Spanish version
