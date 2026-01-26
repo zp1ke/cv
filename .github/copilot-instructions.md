@@ -96,7 +96,7 @@ Common macros used in this project:
 
 ### Prerequisites
 - **For PDFs**: XeLaTeX compiler (TeXLive distribution recommended)
-- **For Website**: Node.js 18+ and npm
+- **For Website**: Node.js 18+, npm, and direnv
 
 ### Build Commands
 
@@ -113,6 +113,8 @@ sh ./scripts/build-resume.sh es  # Spanish version
 ```
 
 **Website (Local Development):**
+> **Note:** All npm/node commands MUST be executed inside the `website/` directory. The project uses `direnv` to manage the Node.js environment, which is only active within this directory.
+
 ```bash
 cd website
 npm install          # First time only
