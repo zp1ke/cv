@@ -123,6 +123,17 @@
   ],
   "opensource": [
     {
+      "title": "Kuallpapers - KDE Plasma Dynamic Wallpaper Plugin",
+      "role": "Author & Maintainer",
+      "url": "https://github.com/zp1ke/kuallpapers",
+      "dates": "Jan. 2026 - Present",
+      "achievements": [
+        "Developed KDE Plasma 6 plugin enabling custom wallpaper scheduling with unlimited time slots and day/night cycle configurations",
+        "Built QML/JavaScript UI with Material design allowing users to configure transitions at specific times (e.g., 08:00 work start, 18:00 evening)",
+        "Published with Apache 2.0 license including pre-configured 12-stage day-cycle using high-quality default artwork from bitday.me"
+      ]
+    },
+    {
       "title": "Salert - Dart Financial Calculations Library",
       "role": "Author & Maintainer",
       "url": "https://github.com/zp1ke/salert",
