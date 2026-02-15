@@ -1,0 +1,112 @@
+[env]
+# Set NODE_ENV for website builds
+NODE_ENV = "production"
+
+[tools]
+node = "22"
+
+[tasks.build-en]
+description = "Build English resume PDF"
+run = "sh scripts/build-resume.sh en"
+
+[tasks.build-es]
+description = "Build Spanish resume PDF"
+run = "sh scripts/build-resume.sh es"
+
+[tasks.build-all]
+description = "Build both English and Spanish PDFs"
+run = """
+mise run build-en
+mise run build-es
+"""
+
+[tasks.copy-pdfs]
+description = "Copy PDFs to website dist folder"
+run = """
+if [ ! -d "website/dist" ]; then
+  echo "Website dist folder doesn't exist. Building website first..."
+  mise run build-web
+fi
+
+if [ -f "resume-en.pdf" ] && [ -f "resume-es.pdf" ]; then
+  cp resume-en.pdf website/dist/
+  cp resume-es.pdf website/dist/
+  echo "✓ PDFs copied to website/dist/"
+else
+  echo "Error: PDF files not found. Run 'mise run build-all' first."
+  exit 1
+fi
+"""
+depends = ["build-all"]
+
+[tasks.install]
+description = "Install website dependencies"
+dir = "website"
+run = "npm install"
+
+[tasks.dev-web]
+description = "Start website development server (http://localhost:4321)"
+dir = "website"
+run = "npm run dev"
+depends = ["install"]
+
+[tasks.build-web]
+description = "Build website for production"
+dir = "website"
+run = "npm run build"
+depends = ["install"]
+
+[tasks.preview-web]
+description = "Preview website production build locally"
+dir = "website"
+run = """
+if [ ! -d "dist" ]; then
+  echo "Website not built yet. Building..."
+  mise run build-web
+fi
+npm run preview
+"""
+depends = ["build-web"]
+
+[tasks.deploy]
+description = "Full build: PDFs + website + copy PDFs"
+run = """
+mise run build-all
+mise run build-web
+mise run copy-pdfs
+"""
+
+[tasks.clean]
+description = "Clean build artifacts"
+run = """
+# Remove LaTeX build artifacts
+rm -rf build/
+rm -f *.aux *.log *.out
+
+# Remove website build
+rm -rf website/dist/
+
+echo "✓ Clean complete"
+"""
+
+[tasks.help]
+description = "Show available development tasks"
+run = """
+echo "CV Project Development Tasks"
+echo ""
+echo "PDF Generation:"
+echo "  mise run build-en      - Build English resume PDF"
+echo "  mise run build-es      - Build Spanish resume PDF"
+echo "  mise run build-all     - Build both English and Spanish PDFs"
+echo ""
+echo "Website:"
+echo "  mise run dev-web       - Start website development server (http://localhost:4321)"
+echo "  mise run build-web     - Build website for production"
+echo "  mise run preview-web   - Preview production build locally"
+echo ""
+echo "Utilities:"
+echo "  mise run copy-pdfs     - Copy PDFs to website/dist/ folder"
+echo "  mise run deploy        - Full build: PDFs + website + copy PDFs"
+echo "  mise run install       - Install website dependencies"
+echo "  mise run clean         - Clean build artifacts"
+"""
