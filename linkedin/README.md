@@ -18,7 +18,7 @@ These LinkedIn files should be updated whenever those JSON files change.
 2. Regenerate LinkedIn files: `python3 scripts/generate-linkedin.py`.
 3. Sync matching LaTeX files in `latex/resume/en/` and/or `latex/resume/es/`.
 4. Review diffs to ensure dates, company names, and achievements are consistent.
-5. Update `latex/resume/infojobs.md` when Spanish/profile-facing content changed.
+5. Regenerate InfoJobs output: `python3 scripts/generate-infojobs.py`.
 
 ## Limits
 The generator applies practical LinkedIn-oriented limits:

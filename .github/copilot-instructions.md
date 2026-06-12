@@ -34,7 +34,7 @@ Both outputs are automatically built and deployed via GitHub Actions on every pu
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for building and deploying both PDFs and website
 
 ### InfoJobs Conversion
-- `latex/resume/infojobs.md` - Text file with Spanish CV content formatted for InfoJobs profile updates. This file must be manually kept in sync with updates to the CV.
+- `infojobs/es/profile.md` - Generated Spanish CV content formatted for InfoJobs profile updates.
 
 ## Content Files
 
@@ -147,7 +147,7 @@ npm run build        # Production build
 1. **Update JSON files first** in `data/cv-{lang}.json` (shared source for web and LinkedIn)
 2. **Update LaTeX files** in `latex/resume/{lang}/` (for PDF output)
 3. **Regenerate LinkedIn files** with `python3 scripts/generate-linkedin.py`
-4. **Update latex/resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
+4. **Regenerate InfoJobs files** with `python3 scripts/generate-infojobs.py`
 5. Commit all changes together
 
 **Example workflow:**
@@ -161,11 +161,11 @@ vim latex/resume/en/experience.tex latex/resume/es/experience.tex
 # Regenerate LinkedIn pack
 python3 scripts/generate-linkedin.py
 
-# Edit InfoJobs file (if applicable)
-vim latex/resume/infojobs.md
+# Regenerate InfoJobs pack
+python3 scripts/generate-infojobs.py
 
 # Commit together
-git add data/ latex/resume/ linkedin/ latex/resume/infojobs.md
+git add data/ latex/resume/ linkedin/ infojobs/
 git commit -m "Sync CV content across outputs"
 git push  # Triggers automatic deployment
 ```
@@ -198,7 +198,7 @@ git push  # Triggers automatic deployment
 1. Update `data/cv-{lang}.json` profile section first
 2. Edit `latex/resume/{lang}/profile.tex`
 3. Regenerate LinkedIn files with `python3 scripts/generate-linkedin.py`
-4. Update `latex/resume/infojobs.md` when Spanish-facing profile content changes
+4. Regenerate InfoJobs output with `python3 scripts/generate-infojobs.py`
 5. Ensure consistency across all language versions and formats
 
 ### Website-Specific Updates
@@ -258,7 +258,7 @@ See `website/README.md` for detailed DNS configuration.
 ## Best Practices for AI Assistance
 
 ### When Editing Content
-- Always specify which format to update (LaTeX, JSON, latex/resume/infojobs.md, or all)
+- Always specify which format to update (LaTeX, JSON, LinkedIn, InfoJobs, or all)
 - Treat `data/` JSON as source of truth, then propagate to LaTeX and LinkedIn (and InfoJobs when relevant)
 - Maintain professional tone and concise descriptions
 - Use action verbs and achievement-focused language

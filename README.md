@@ -100,7 +100,7 @@ Push to `master` branch to trigger automatic build and deployment:
 When updating your CV, change JSON first, then propagate to all relevant counterparts:
 - **LaTeX** (`latex/resume/en/*.tex`, `latex/resume/es/*.tex`) for PDF output
 - **LinkedIn pack** (`linkedin/`) via generator script
-- **InfoJobs** (`latex/resume/infojobs.md`) when Spanish/profile-facing content changes
+- **InfoJobs pack** (`infojobs/es/profile.md`) via generator script
 
 **Workflow:**
 ```bash
@@ -113,11 +113,11 @@ vim latex/resume/en/experience.tex latex/resume/es/experience.tex
 # 3. Regenerate LinkedIn files
 python3 scripts/generate-linkedin.py
 
-# 4. Update InfoJobs if needed
-vim latex/resume/infojobs.md
+# 4. Regenerate InfoJobs files
+python3 scripts/generate-infojobs.py
 
 # 5. Commit all related changes together
-git add data/ latex/resume/ linkedin/ latex/resume/infojobs.md
+git add data/ latex/resume/ linkedin/ infojobs/
 git commit -m "Sync CV content across outputs"
 
 # 6. Push to trigger automatic deployment

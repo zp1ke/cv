@@ -39,6 +39,10 @@ fi
 """
 depends = ["build-all"]
 
+[tasks.generate-infojobs]
+description = "Generate InfoJobs output from canonical data"
+run = "python3 scripts/generate-infojobs.py"
+
 [tasks.install]
 description = "Install website dependencies"
 dir = "website"
@@ -69,11 +73,12 @@ npm run preview
 depends = ["build-web"]
 
 [tasks.deploy]
-description = "Full build: PDFs + website + copy PDFs"
+description = "Full build: PDFs + website + copy PDFs + InfoJobs"
 run = """
 mise run build-all
 mise run build-web
 mise run copy-pdfs
+mise run generate-infojobs
 """
 
 [tasks.clean]
@@ -107,7 +112,8 @@ echo "  mise run preview-web   - Preview production build locally"
 echo ""
 echo "Utilities:"
 echo "  mise run copy-pdfs     - Copy PDFs to website/dist/ folder"
-echo "  mise run deploy        - Full build: PDFs + website + copy PDFs"
+echo "  mise run generate-infojobs - Generate InfoJobs output"
+echo "  mise run deploy        - Full build: PDFs + website + copy PDFs + InfoJobs"
 echo "  mise run install       - Install website dependencies"
 echo "  mise run clean         - Clean build artifacts"
 """

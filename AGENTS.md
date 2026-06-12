@@ -16,7 +16,7 @@ This file guides coding agents working in this repository so updates stay consis
 - Spanish route: `/es/`
 
 3. InfoJobs profile source:
-- `latex/resume/infojobs.md`
+- `infojobs/es/profile.md`
 
 ## Core Rule: Keep Content In Sync
 The canonical source of CV content is:
@@ -26,7 +26,7 @@ The canonical source of CV content is:
 When updating CV content, start in JSON and propagate changes to all relevant counterparts in the same change:
 - LaTeX: `latex/resume/en/*.tex` and/or `latex/resume/es/*.tex`
 - LinkedIn pack: regenerate via `python3 scripts/generate-linkedin.py`
-- InfoJobs text: `latex/resume/infojobs.md` (especially for Spanish-facing profile text)
+- InfoJobs text: `infojobs/es/profile.md` (generated from `data/cv-es.json`)
 
 Do not update only one format unless explicitly requested.
 
@@ -94,7 +94,7 @@ Important: Node/npm commands belong in `website/`.
 1. Update `data/cv-en.json` and `data/cv-es.json` experience sections first.
 2. Mirror those changes in `latex/resume/en/experience.tex` and `latex/resume/es/experience.tex`.
 3. Regenerate LinkedIn files: `python3 scripts/generate-linkedin.py`.
-4. Update `latex/resume/infojobs.md` if the change affects profile-facing Spanish content.
+4. Regenerate InfoJobs output: `python3 scripts/generate-infojobs.py`.
 5. Build/validate PDFs and website.
 
 ### Update skills
@@ -107,7 +107,7 @@ Important: Node/npm commands belong in `website/`.
 1. Edit profile sections in `data/cv-en.json` and `data/cv-es.json` first.
 2. Mirror changes in `latex/resume/en/profile.tex` and `latex/resume/es/profile.tex`.
 3. Regenerate LinkedIn files: `python3 scripts/generate-linkedin.py`.
-4. Update `latex/resume/infojobs.md` if Spanish-facing profile content changed.
+4. Regenerate InfoJobs output: `python3 scripts/generate-infojobs.py`.
 5. Ensure links/usernames match across all outputs.
 
 ## Safety and Scope Rules for Agents
@@ -122,6 +122,7 @@ Important: Node/npm commands belong in `website/`.
   - Confirm source-of-truth JSON was updated first (`data/cv-en.json`, `data/cv-es.json`).
   - Confirm all required counterparts were updated (LaTeX + LinkedIn + InfoJobs as applicable).
   - Regenerate LinkedIn pack (`python3 scripts/generate-linkedin.py`) and review diff.
+  - Regenerate InfoJobs pack (`python3 scripts/generate-infojobs.py`) and review diff.
   - Build at least the affected PDF language(s).
   - Build website (`npm run build` inside `website/`).
 - Website-only style/layout changed:
@@ -137,10 +138,11 @@ Important: Node/npm commands belong in `website/`.
 
 ### Pre-push validation checklist
 1. Regenerate LinkedIn content: `python3 scripts/generate-linkedin.py`.
-2. Build affected PDF language(s): `sh ./latex/scripts/build-resume.sh en|es`.
-3. Build website in `website/`: `npm run build`.
-4. Spot-check routes `/` and `/es/` for rendering regressions.
-5. Confirm no generated artifacts are staged for commit.
+2. Regenerate InfoJobs content: `python3 scripts/generate-infojobs.py`.
+3. Build affected PDF language(s): `sh ./latex/scripts/build-resume.sh en|es`.
+4. Build website in `website/`: `npm run build`.
+5. Spot-check routes `/` and `/es/` for rendering regressions.
+6. Confirm no generated artifacts are staged for commit.
 
 ## Notes for Future Agents
 - This project intentionally uses JSON in `data/` as source of truth, with LaTeX/LinkedIn/InfoJobs as derived counterparts.

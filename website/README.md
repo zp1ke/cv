@@ -106,7 +106,7 @@ When you update CV content, update JSON first and then propagate those changes t
 1. Update `data/cv-en.json` and/or `data/cv-es.json`
 2. Mirror changes in LaTeX files under `latex/resume/en/` and/or `latex/resume/es/`
 3. Regenerate LinkedIn content: `python3 scripts/generate-linkedin.py`
-4. Update `latex/resume/infojobs.md` when Spanish/profile-facing content changed
+4. Regenerate InfoJobs content: `python3 scripts/generate-infojobs.py`
 5. Commit all related changes together
 6. Push to trigger automatic deployment
 

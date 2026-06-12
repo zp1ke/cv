@@ -87,7 +87,7 @@ When CV content changes, use this order:
 1. Update canonical JSON in `data/cv-en.json` and/or `data/cv-es.json`
 2. Mirror changes in LaTeX files under `latex/resume/en/` and/or `latex/resume/es/`
 3. Regenerate LinkedIn files: `python3 scripts/generate-linkedin.py`
-4. Update `latex/resume/infojobs.md` when Spanish/profile-facing content changed
+4. Regenerate InfoJobs output: `python3 scripts/generate-infojobs.py`
 5. Validate builds (`cv-build-all`, then `cv-build-web`)
 
 ### Local development (website only)
