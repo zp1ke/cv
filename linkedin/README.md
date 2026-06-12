@@ -3,9 +3,9 @@
 This folder contains copy-paste content for LinkedIn profile sections.
 
 ## Canonical Source
-Use website JSON as source of truth:
-- `website/src/data/cv-en.json`
-- `website/src/data/cv-es.json`
+Use shared repository JSON as source of truth:
+- `data/cv-en.json`
+- `data/cv-es.json`
 
 These LinkedIn files should be updated whenever those JSON files change.
 

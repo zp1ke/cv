@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "website" / "src" / "data"
+DATA_DIR = ROOT / "data"
 OUT_DIR = ROOT / "linkedin"
 
 

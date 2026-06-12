@@ -21,7 +21,7 @@ This file guides coding agents working in this repository so updates stay consis
 ## Core Rule: Keep Content In Sync
 When updating CV content, update all relevant representations in the same change:
 - LaTeX: `resume/en/*.tex` and/or `resume/es/*.tex`
-- Website JSON: `website/src/data/cv-en.json` and/or `website/src/data/cv-es.json`
+- Website/Shared JSON: `data/cv-en.json` and/or `data/cv-es.json`
 - InfoJobs text: `resume/infojobs.md` (especially for Spanish-facing profile text)
 
 Do not update only one format unless explicitly requested.
@@ -37,7 +37,7 @@ Do not update only one format unless explicitly requested.
   - Linux/macOS: `scripts/build-resume.sh`
   - Windows: `scripts/build-resume.cmd`
 - Website app: `website/`
-  - Content: `website/src/data/cv-en.json`, `website/src/data/cv-es.json`
+  - Content source (shared): `data/cv-en.json`, `data/cv-es.json`
   - Pages: `website/src/pages/index.astro`, `website/src/pages/es/index.astro`
   - Shared components/layouts: `website/src/components/`, `website/src/layouts/`
 - CI deployment workflow: `.github/workflows/deploy.yml`
@@ -88,7 +88,7 @@ Important: Node/npm commands belong in `website/`.
 
 ### Add or edit work experience
 1. Update `resume/en/experience.tex` and `resume/es/experience.tex`.
-2. Update `website/src/data/cv-en.json` and `website/src/data/cv-es.json` experience sections.
+2. Update `data/cv-en.json` and `data/cv-es.json` experience sections.
 3. Update `resume/infojobs.md` if the change affects profile-facing Spanish content.
 4. Build/validate PDFs and website.
 

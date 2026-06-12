@@ -49,8 +49,8 @@ Each language directory (`resume/en/`, `resume/es/`) contains modular content fi
 
 ### Website Content
 Content is maintained separately in JSON format:
-- `website/src/data/cv-en.json` - English version
-- `website/src/data/cv-es.json` - Spanish version
+- `data/cv-en.json` - English version
+- `data/cv-es.json` - Spanish version
 
 **IMPORTANT**: LaTeX and JSON content must be kept in sync manually. When updating CV content, update both formats.
 
@@ -145,7 +145,7 @@ npm run build        # Production build
 **Important**: When updating CV content, you must update ALL formats:
 
 1. **Update LaTeX files** in `resume/{lang}/` (for PDF output)
-2. **Update JSON files** in `website/src/data/cv-{lang}.json` (for web output)
+2. **Update JSON files** in `data/cv-{lang}.json` (shared source for web and LinkedIn)
 3. **Update resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
 4. Commit all changes together
 
@@ -155,13 +155,13 @@ npm run build        # Production build
 vim resume/en/experience.tex
 
 # Edit corresponding JSON
-vim website/src/data/cv-en.json
+vim data/cv-en.json
 
 # Edit InfoJobs file (if applicable)
 vim resume/infojobs.md
 
 # Commit together
-git add resume/en/experience.tex website/src/data/cv-en.json resume/infojobs.md
+git add resume/en/experience.tex data/cv-en.json resume/infojobs.md
 git commit -m "Add new work experience"
 git push  # Triggers automatic deployment
 ```
@@ -170,26 +170,26 @@ git push  # Triggers automatic deployment
 1. Open `resume/{lang}/experience.tex`
 2. Add new `\cventry` block at the top (reverse chronological)
 3. Include: company, location, dates, achievement-focused bullets
-4. Update `website/src/data/cv-{lang}.json` with same content
+4. Update `data/cv-{lang}.json` with same content
 5. Update both English and Spanish versions
 6. Keep formatting consistent with existing entries
 
 ### Updating Skills
 1. Edit `resume/{lang}/skills.tex`
-2. Update `website/src/data/cv-{lang}.json` skills section
+2. Update `data/cv-{lang}.json` skills section
 3. Maintain skill categories consistently across formats
 4. Keep skills relevant and up-to-date
 
 ### Adding Open Source Projects
 1. Edit `resume/{lang}/opensource.tex`
-2. Update `website/src/data/cv-{lang}.json` opensource array
+2. Update `data/cv-{lang}.json` opensource array
 3. Add `\cventry` with role, project name, link, dates
 4. Include achievement-focused descriptions
 5. Maintain reverse chronological order
 
 ### Updating Personal Information
 1. Edit `resume/{lang}/profile.tex`
-2. Update `website/src/data/cv-{lang}.json` profile section
+2. Update `data/cv-{lang}.json` profile section
 3. Ensure consistency across all language versions and formats
 
 ### Website-Specific Updates

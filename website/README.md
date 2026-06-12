@@ -95,8 +95,8 @@ To use your custom domain:
 
 The website content is maintained separately from the LaTeX CV:
 
-- **English content:** `website/src/data/cv-en.json`
-- **Spanish content:** `website/src/data/cv-es.json`
+- **English content:** `data/cv-en.json`
+- **Spanish content:** `data/cv-es.json`
 
 ### Syncing with LaTeX CV
 
@@ -104,7 +104,7 @@ When you update your LaTeX CV, remember to also update the corresponding JSON fi
 
 **Workflow:**
 1. Update LaTeX files in `resume/en/` or `resume/es/`
-2. Update corresponding JSON in `website/src/data/cv-en.json` or `cv-es.json`
+2. Update corresponding JSON in `data/cv-en.json` or `data/cv-es.json`
 3. Commit both changes together
 4. Push to trigger automatic deployment
 
@@ -115,12 +115,19 @@ website/
 ├── public/           # Static assets (PDFs, favicon, CNAME)
 ├── src/
 │   ├── components/   # Reusable Astro components
-│   ├── data/         # CV content in JSON format
 │   ├── layouts/      # Page layouts
 │   └── pages/        # Routes (index = English, es/index = Spanish)
 ├── astro.config.mjs  # Astro configuration
 ├── package.json      # Dependencies
 └── tsconfig.json     # TypeScript config
+```
+
+Shared content source (repository root):
+
+```
+data/
+├── cv-en.json
+└── cv-es.json
 ```
 
 ## Features

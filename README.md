@@ -81,7 +81,7 @@ Push to `master` branch to trigger automatic build and deployment:
 
 ### Website
 - `website/` - Astro static site
-  - `src/data/` - CV content in JSON format
+  - Uses shared content from `data/`
   - `src/components/` - Reusable components
   - `src/pages/` - Routes (bilingual)
   - `public/` - Static assets
@@ -94,7 +94,7 @@ Push to `master` branch to trigger automatic build and deployment:
 
 **Important**: This project maintains content in TWO formats:
 - **LaTeX** (.tex files) for PDF generation
-- **JSON** (in `website/src/data/`) for web display
+- **JSON** (in `data/`) as shared source for web/LinkedIn
 
 When updating your CV, you must update BOTH formats to keep them in sync.
 
@@ -104,10 +104,10 @@ When updating your CV, you must update BOTH formats to keep them in sync.
 vim resume/en/experience.tex
 
 # 2. Update corresponding JSON
-vim website/src/data/cv-en.json
+vim data/cv-en.json
 
 # 3. Commit both together
-git add resume/en/experience.tex website/src/data/cv-en.json
+git add resume/en/experience.tex data/cv-en.json
 git commit -m "Add new work experience"
 
 # 4. Push to trigger automatic deployment
