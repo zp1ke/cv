@@ -22,7 +22,7 @@ Both outputs are automatically built and deployed via GitHub Actions on every pu
 
 ### Astro Website
 - `website/` - Astro static site project
-  - `src/data/` - CV content in JSON format (cv-en.json, cv-es.json)
+   - Uses shared CV content from repository root `data/`
   - `src/components/` - Reusable Astro components
   - `src/layouts/` - Page layouts
   - `src/pages/` - Routes (index.astro for English, es/index.astro for Spanish)
@@ -48,11 +48,11 @@ Each language directory (`latex/resume/en/`, `latex/resume/es/`) contains modula
 6. `opensource.tex` - Open source contributions and projects
 
 ### Website Content
-Content is maintained separately in JSON format:
+Canonical CV content is maintained in JSON format:
 - `data/cv-en.json` - English version
 - `data/cv-es.json` - Spanish version
 
-**IMPORTANT**: LaTeX and JSON content must be kept in sync manually. When updating CV content, update both formats.
+**IMPORTANT**: `data/` JSON is the source of truth. When content changes, propagate to LaTeX, LinkedIn, and InfoJobs (when applicable).
 
 ## Key Technologies
 - **LaTeX**: Document preparation system
@@ -142,55 +142,64 @@ npm run build        # Production build
 
 ### Updating CV Content
 
-**Important**: When updating CV content, you must update ALL formats:
+**Important**: `data/` is the main source of truth. When updating CV content, you must propagate to ALL relevant formats:
 
-1. **Update LaTeX files** in `latex/resume/{lang}/` (for PDF output)
-2. **Update JSON files** in `data/cv-{lang}.json` (shared source for web and LinkedIn)
-3. **Update latex/resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
-4. Commit all changes together
+1. **Update JSON files first** in `data/cv-{lang}.json` (shared source for web and LinkedIn)
+2. **Update LaTeX files** in `latex/resume/{lang}/` (for PDF output)
+3. **Regenerate LinkedIn files** with `python3 scripts/generate-linkedin.py`
+4. **Update latex/resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
+5. Commit all changes together
 
 **Example workflow:**
 ```bash
-# Edit LaTeX
-vim latex/resume/en/experience.tex
+# Edit canonical JSON first
+vim data/cv-en.json data/cv-es.json
 
-# Edit corresponding JSON
-vim data/cv-en.json
+# Edit corresponding LaTeX files
+vim latex/resume/en/experience.tex latex/resume/es/experience.tex
+
+# Regenerate LinkedIn pack
+python3 scripts/generate-linkedin.py
 
 # Edit InfoJobs file (if applicable)
 vim latex/resume/infojobs.md
 
 # Commit together
-git add latex/resume/en/experience.tex data/cv-en.json latex/resume/infojobs.md
-git commit -m "Add new work experience"
+git add data/ latex/resume/ linkedin/ latex/resume/infojobs.md
+git commit -m "Sync CV content across outputs"
 git push  # Triggers automatic deployment
 ```
 
 ### Adding New Work Experience
-1. Open `latex/resume/{lang}/experience.tex`
-2. Add new `\cventry` block at the top (reverse chronological)
-3. Include: company, location, dates, achievement-focused bullets
-4. Update `data/cv-{lang}.json` with same content
-5. Update both English and Spanish versions
-6. Keep formatting consistent with existing entries
+1. Update `data/cv-{lang}.json` first
+2. Open `latex/resume/{lang}/experience.tex`
+3. Add new `\cventry` block at the top (reverse chronological)
+4. Include: company, location, dates, achievement-focused bullets
+5. Regenerate LinkedIn files with `python3 scripts/generate-linkedin.py`
+6. Update both English and Spanish versions
+7. Keep formatting consistent with existing entries
 
 ### Updating Skills
-1. Edit `latex/resume/{lang}/skills.tex`
-2. Update `data/cv-{lang}.json` skills section
-3. Maintain skill categories consistently across formats
-4. Keep skills relevant and up-to-date
+1. Update `data/cv-{lang}.json` skills section first
+2. Edit `latex/resume/{lang}/skills.tex`
+3. Regenerate LinkedIn files with `python3 scripts/generate-linkedin.py`
+4. Maintain skill categories consistently across formats
+5. Keep skills relevant and up-to-date
 
 ### Adding Open Source Projects
-1. Edit `latex/resume/{lang}/opensource.tex`
-2. Update `data/cv-{lang}.json` opensource array
+1. Update `data/cv-{lang}.json` opensource array first
+2. Edit `latex/resume/{lang}/opensource.tex`
 3. Add `\cventry` with role, project name, link, dates
 4. Include achievement-focused descriptions
-5. Maintain reverse chronological order
+5. Regenerate LinkedIn files with `python3 scripts/generate-linkedin.py`
+6. Maintain reverse chronological order
 
 ### Updating Personal Information
-1. Edit `latex/resume/{lang}/profile.tex`
-2. Update `data/cv-{lang}.json` profile section
-3. Ensure consistency across all language versions and formats
+1. Update `data/cv-{lang}.json` profile section first
+2. Edit `latex/resume/{lang}/profile.tex`
+3. Regenerate LinkedIn files with `python3 scripts/generate-linkedin.py`
+4. Update `latex/resume/infojobs.md` when Spanish-facing profile content changes
+5. Ensure consistency across all language versions and formats
 
 ### Website-Specific Updates
 
@@ -250,7 +259,7 @@ See `website/README.md` for detailed DNS configuration.
 
 ### When Editing Content
 - Always specify which format to update (LaTeX, JSON, latex/resume/infojobs.md, or all)
-- Update LaTeX, JSON, and latex/resume/infojobs.md when changing CV content
+- Treat `data/` JSON as source of truth, then propagate to LaTeX and LinkedIn (and InfoJobs when relevant)
 - Maintain professional tone and concise descriptions
 - Use action verbs and achievement-focused language
 - Keep technical terms in English even in Spanish version

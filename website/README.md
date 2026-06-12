@@ -93,20 +93,22 @@ To use your custom domain:
 
 ## Content Updates
 
-The website content is maintained separately from the LaTeX CV:
+The canonical source of CV content is:
 
 - **English content:** `data/cv-en.json`
 - **Spanish content:** `data/cv-es.json`
 
 ### Syncing with LaTeX CV
 
-When you update your LaTeX CV, remember to also update the corresponding JSON files. This is a manual process to give you full control over web presentation.
+When you update CV content, update JSON first and then propagate those changes to the other outputs.
 
 **Workflow:**
-1. Update LaTeX files in `latex/resume/en/` or `latex/resume/es/`
-2. Update corresponding JSON in `data/cv-en.json` or `data/cv-es.json`
-3. Commit both changes together
-4. Push to trigger automatic deployment
+1. Update `data/cv-en.json` and/or `data/cv-es.json`
+2. Mirror changes in LaTeX files under `latex/resume/en/` and/or `latex/resume/es/`
+3. Regenerate LinkedIn content: `python3 scripts/generate-linkedin.py`
+4. Update `latex/resume/infojobs.md` when Spanish/profile-facing content changed
+5. Commit all related changes together
+6. Push to trigger automatic deployment
 
 ## Project Structure
 

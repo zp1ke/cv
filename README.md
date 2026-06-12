@@ -93,25 +93,34 @@ Push to `master` branch to trigger automatic build and deployment:
 
 ## Updating Content
 
-**Important**: This project maintains content in TWO formats:
-- **LaTeX** (.tex files) for PDF generation
-- **JSON** (in `data/`) as shared source for web/LinkedIn
+**Important**: The canonical source of CV content is JSON in `data/`:
+- `data/cv-en.json`
+- `data/cv-es.json`
 
-When updating your CV, you must update BOTH formats to keep them in sync.
+When updating your CV, change JSON first, then propagate to all relevant counterparts:
+- **LaTeX** (`latex/resume/en/*.tex`, `latex/resume/es/*.tex`) for PDF output
+- **LinkedIn pack** (`linkedin/`) via generator script
+- **InfoJobs** (`latex/resume/infojobs.md`) when Spanish/profile-facing content changes
 
 **Workflow:**
 ```bash
-# 1. Update LaTeX content
-vim latex/resume/en/experience.tex
+# 1. Update canonical JSON content
+vim data/cv-en.json data/cv-es.json
 
-# 2. Update corresponding JSON
-vim data/cv-en.json
+# 2. Mirror changes in LaTeX counterparts
+vim latex/resume/en/experience.tex latex/resume/es/experience.tex
 
-# 3. Commit both together
-git add latex/resume/en/experience.tex data/cv-en.json
-git commit -m "Add new work experience"
+# 3. Regenerate LinkedIn files
+python3 scripts/generate-linkedin.py
 
-# 4. Push to trigger automatic deployment
+# 4. Update InfoJobs if needed
+vim latex/resume/infojobs.md
+
+# 5. Commit all related changes together
+git add data/ latex/resume/ linkedin/ latex/resume/infojobs.md
+git commit -m "Sync CV content across outputs"
+
+# 6. Push to trigger automatic deployment
 git push
 ```
 
@@ -135,8 +144,11 @@ See `website/README.md` for detailed instructions.
 ## Contributing
 
 When updating the CV:
-1. Update both LaTeX and JSON content files
-2. Maintain consistency across both language versions (English/Spanish)
-3. Use reverse chronological order for experience/education
-4. Test both PDF compilation and website build before committing
-5. Follow the coding standards in `.github/copilot-instructions.md`
+1. Update `data/cv-en.json` and `data/cv-es.json` first
+2. Mirror changes to LaTeX and regenerate LinkedIn content
+3. Update InfoJobs when relevant
+4. Keep all outputs aligned in the same commit
+5. Maintain consistency across both language versions (English/Spanish)
+6. Use reverse chronological order for experience/education
+7. Test both PDF compilation and website build before committing
+8. Follow the coding standards in `.github/copilot-instructions.md`
