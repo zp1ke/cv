@@ -29,9 +29,9 @@ jobs:
 
       - name: Build LaTeX PDFs
         run: |
-          chmod +x ./scripts/build-resume.sh
-          ./scripts/build-resume.sh en
-          ./scripts/build-resume.sh es
+          chmod +x ./latex/scripts/build-resume.sh
+          ./latex/scripts/build-resume.sh en
+          ./latex/scripts/build-resume.sh es
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -50,8 +50,8 @@ jobs:
 
       - name: Copy PDFs to website
         run: |
-          cp resume-en.pdf website/dist/
-          cp resume-es.pdf website/dist/
+          cp latex/output/resume-en.pdf website/dist/
+          cp latex/output/resume-es.pdf website/dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -44,12 +44,12 @@ Download from [MacTeX](https://www.tug.org/mactex/mactex-download.html)
 
 **Windows:**
 ```cmd
-.\scripts\build-resume.cmd [LANGUAGE_CODE]
+.\latex\scripts\build-resume.cmd [LANGUAGE_CODE]
 ```
 
 **Linux and MacOS:**
 ```bash
-sh ./scripts/build-resume.sh [LANGUAGE_CODE]
+sh ./latex/scripts/build-resume.sh [LANGUAGE_CODE]
 ```
 
 Supported language codes: `en`, `es`
@@ -73,11 +73,12 @@ Push to `master` branch to trigger automatic build and deployment:
 ## Project Structure
 
 ### LaTeX CV
-- `resume.tex` - Main LaTeX document
-- `document-format.cls` - Custom document class
-- `resume/en/` - English content files
-- `resume/es/` - Spanish content files
-- `scripts/` - Build scripts
+- `latex/resume.tex` - Main LaTeX document
+- `latex/document-format.cls` - Custom document class
+- `latex/resume/en/` - English content files
+- `latex/resume/es/` - Spanish content files
+- `latex/scripts/` - Build scripts
+- `latex/output/` - Generated PDF output files
 
 ### Website
 - `website/` - Astro static site
@@ -101,13 +102,13 @@ When updating your CV, you must update BOTH formats to keep them in sync.
 **Workflow:**
 ```bash
 # 1. Update LaTeX content
-vim resume/en/experience.tex
+vim latex/resume/en/experience.tex
 
 # 2. Update corresponding JSON
 vim data/cv-en.json
 
 # 3. Commit both together
-git add resume/en/experience.tex data/cv-en.json
+git add latex/resume/en/experience.tex data/cv-en.json
 git commit -m "Add new work experience"
 
 # 4. Push to trigger automatic deployment

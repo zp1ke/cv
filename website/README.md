@@ -103,7 +103,7 @@ The website content is maintained separately from the LaTeX CV:
 When you update your LaTeX CV, remember to also update the corresponding JSON files. This is a manual process to give you full control over web presentation.
 
 **Workflow:**
-1. Update LaTeX files in `resume/en/` or `resume/es/`
+1. Update LaTeX files in `latex/resume/en/` or `latex/resume/es/`
 2. Update corresponding JSON in `data/cv-en.json` or `data/cv-es.json`
 3. Commit both changes together
 4. Push to trigger automatic deployment
@@ -146,7 +146,7 @@ data/
 - Ensure Node.js version is 18 or higher
 
 **PDFs not showing:**
-- Verify PDFs were built successfully in the root directory
+- Verify PDFs were built successfully in `latex/output/`
 - Check GitHub Actions logs for PDF build errors
 
 **Custom domain not working:**

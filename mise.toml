@@ -7,11 +7,11 @@ node = "22"
 
 [tasks.build-en]
 description = "Build English resume PDF"
-run = "sh scripts/build-resume.sh en"
+run = "sh latex/scripts/build-resume.sh en"
 
 [tasks.build-es]
 description = "Build Spanish resume PDF"
-run = "sh scripts/build-resume.sh es"
+run = "sh latex/scripts/build-resume.sh es"
 
 [tasks.build-all]
 description = "Build both English and Spanish PDFs"
@@ -28,9 +28,9 @@ if [ ! -d "website/dist" ]; then
   mise run build-web
 fi
 
-if [ -f "resume-en.pdf" ] && [ -f "resume-es.pdf" ]; then
-  cp resume-en.pdf website/dist/
-  cp resume-es.pdf website/dist/
+if [ -f "latex/output/resume-en.pdf" ] && [ -f "latex/output/resume-es.pdf" ]; then
+  cp latex/output/resume-en.pdf website/dist/
+  cp latex/output/resume-es.pdf website/dist/
   echo "✓ PDFs copied to website/dist/"
 else
   echo "Error: PDF files not found. Run 'mise run build-all' first."
@@ -80,7 +80,8 @@ mise run copy-pdfs
 description = "Clean build artifacts"
 run = """
 # Remove LaTeX build artifacts
-rm -rf build/
+rm -rf latex/build/
+rm -rf latex/output/
 rm -f *.aux *.log *.out
 
 # Remove website build

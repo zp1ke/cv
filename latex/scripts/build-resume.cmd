@@ -6,6 +6,7 @@ set filePath=%filePath:~0,-1%
 set parentPath=%filePath%\..
 
 set buildPath=%parentPath%\build
+set outputPath=%parentPath%\output
 set resumeFile=%parentPath%\resume.tex
 set lang=%1
 
@@ -36,20 +37,23 @@ if not exist "%parentPath%\resume\%lang%" (
 REM Clean and create build directory
 if exist "%buildPath%" rmdir /q/s "%buildPath%"
 mkdir "%buildPath%"
+if not exist "%outputPath%" mkdir "%outputPath%"
 
 echo Building resume for language: %lang%...
 
 REM Build PDF with xelatex
+pushd "%parentPath%"
 xelatex -output-directory "%buildPath%" --jobname "%lang%" "%resumeFile%"
+popd
 if errorlevel 1 (
   echo Error: Failed to compile LaTeX document!
   exit /b 1
 )
 
-REM Copy PDF to project root
+REM Copy PDF to latex output directory
 if exist "%buildPath%\%lang%.pdf" (
-  copy /y "%buildPath%\%lang%.pdf" "%parentPath%\resume-%lang%.pdf" >nul
-  echo √ Success! %parentPath%\resume-%lang%.pdf created!
+  copy /y "%buildPath%\%lang%.pdf" "%outputPath%\resume-%lang%.pdf" >nul
+  echo √ Success! %outputPath%\resume-%lang%.pdf created!
 ) else (
   echo Error: PDF file not generated!
   exit /b 1

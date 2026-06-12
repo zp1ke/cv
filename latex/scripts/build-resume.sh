@@ -2,9 +2,11 @@
 
 set -e  # Exit on error
 
-parentPath="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-buildPath="${parentPath}/build"
-resumeFile="${parentPath}/resume.tex"
+scriptDir="$( cd -P "$( dirname "$0" )" >/dev/null 2>&1 && pwd )"
+latexPath="$( cd -P "${scriptDir}/.." >/dev/null 2>&1 && pwd )"
+buildPath="${latexPath}/build"
+outputPath="${latexPath}/output"
+resumeFile="${latexPath}/resume.tex"
 
 # Check if xelatex is available
 if ! command -v xelatex &> /dev/null; then
@@ -26,7 +28,7 @@ if [ -z "$1" ]; then
   exit 1;
 fi
 
-if [ ! -d "${parentPath}/resume/$1" ]; then
+if [ ! -d "${latexPath}/resume/$1" ]; then
   echo "Error: Unsupported language '$1'!";
   echo "Supported languages: en, es.";
   exit 1;
@@ -35,19 +37,20 @@ fi
 # Clean and create build directory
 rm -rf "$buildPath"
 mkdir -p "$buildPath"
+mkdir -p "$outputPath"
 
 echo "Building resume for language: $1..."
 
 # Build PDF with xelatex
-if ! xelatex -output-directory "$buildPath" --jobname "$1" "$resumeFile"; then
+if ! (cd "$latexPath" && xelatex -output-directory "$buildPath" --jobname "$1" "$resumeFile"); then
   echo "Error: Failed to compile LaTeX document!";
   exit 1;
 fi
 
-# Copy PDF to project root
+# Copy PDF to latex output directory
 if [ -f "${buildPath}/$1.pdf" ]; then
-  cp "${buildPath}/$1.pdf" "${parentPath}/resume-$1.pdf"
-  echo "✓ Success! ${parentPath}/resume-$1.pdf created!"
+  cp "${buildPath}/$1.pdf" "${outputPath}/resume-$1.pdf"
+  echo "✓ Success! ${outputPath}/resume-$1.pdf created!"
 else
   echo "Error: PDF file not generated!";
   exit 1;

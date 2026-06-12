@@ -10,15 +10,15 @@ Both outputs are automatically built and deployed via GitHub Actions on every pu
 ## Project Structure
 
 ### LaTeX CV (PDF Generation)
-- `resume.tex` - Main LaTeX document template
-- `document-format.cls` - Custom document class defining CV structure and styling
-- `fontawesome.sty` - FontAwesome icon package for social media icons
-- `fonts/` - Custom fonts directory (Roboto family)
-- `resume/en/` - English version content files
-- `resume/es/` - Spanish version content files
-- `scripts/` - Build scripts for different platforms
-- `build/` - Temporary build directory (ignored by git)
-- Generated PDFs: `resume-en.pdf`, `resume-es.pdf`
+- `latex/resume.tex` - Main LaTeX document template
+- `latex/document-format.cls` - Custom document class defining CV structure and styling
+- `latex/fontawesome.sty` - FontAwesome icon package for social media icons
+- `latex/fonts/` - Custom fonts directory (Roboto family)
+- `latex/resume/en/` - English version content files
+- `latex/resume/es/` - Spanish version content files
+- `latex/scripts/` - Build scripts for different platforms
+- `latex/build/` - Temporary build directory (ignored by git)
+- Generated PDFs: `latex/output/resume-en.pdf`, `latex/output/resume-es.pdf`
 
 ### Astro Website
 - `website/` - Astro static site project
@@ -34,12 +34,12 @@ Both outputs are automatically built and deployed via GitHub Actions on every pu
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for building and deploying both PDFs and website
 
 ### InfoJobs Conversion
-- `resume/infojobs.md` - Text file with Spanish CV content formatted for InfoJobs profile updates. This file must be manually kept in sync with updates to the CV.
+- `latex/resume/infojobs.md` - Text file with Spanish CV content formatted for InfoJobs profile updates. This file must be manually kept in sync with updates to the CV.
 
 ## Content Files
 
 ### LaTeX Content (per language)
-Each language directory (`resume/en/`, `resume/es/`) contains modular content files:
+Each language directory (`latex/resume/en/`, `latex/resume/es/`) contains modular content files:
 1. `profile.tex` - Personal information, contact details, social links
 2. `summary.tex` - Professional summary/objective
 3. `skills.tex` - Technical skills, languages, and competencies
@@ -66,7 +66,7 @@ Content is maintained separately in JSON format:
 - Use consistent indentation (2 spaces)
 - Add section comments with `%-------------------------------------------------------------------------------`
 - Group related content with blank lines
-- Use semantic macro names from `document-format.cls`
+- Use semantic macro names from `latex/document-format.cls`
 - Keep lines under 100 characters when possible
 
 ### Content Organization
@@ -102,14 +102,14 @@ Common macros used in this project:
 
 **LaTeX PDFs (Linux/MacOS):**
 ```bash
-sh ./scripts/build-resume.sh en  # English version
-sh ./scripts/build-resume.sh es  # Spanish version
+sh ./latex/scripts/build-resume.sh en  # English version
+sh ./latex/scripts/build-resume.sh es  # Spanish version
 ```
 
 **LaTeX PDFs (Windows):**
 ```cmd
-.\scripts\build-resume.cmd en    # English version
-.\scripts\build-resume.cmd es    # Spanish version
+.\latex\scripts\build-resume.cmd en    # English version
+.\latex\scripts\build-resume.cmd es    # Spanish version
 ```
 
 **Website (Local Development):**
@@ -126,9 +126,9 @@ npm run build        # Production build
 
 **PDF Build:**
 1. Validates language parameter (en or es)
-2. Creates temporary build directory
+2. Creates temporary build directory under `latex/build/`
 3. Compiles LaTeX to PDF using XeLaTeX
-4. Copies PDF to project root as `resume-{lang}.pdf`
+4. Copies PDF to `latex/output/resume-{lang}.pdf`
 5. Cleans up temporary files
 
 **Website Build (GitHub Actions):**
@@ -144,30 +144,30 @@ npm run build        # Production build
 
 **Important**: When updating CV content, you must update ALL formats:
 
-1. **Update LaTeX files** in `resume/{lang}/` (for PDF output)
+1. **Update LaTeX files** in `latex/resume/{lang}/` (for PDF output)
 2. **Update JSON files** in `data/cv-{lang}.json` (shared source for web and LinkedIn)
-3. **Update resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
+3. **Update latex/resume/infojobs.md** (for InfoJobs profile, mainly Spanish content)
 4. Commit all changes together
 
 **Example workflow:**
 ```bash
 # Edit LaTeX
-vim resume/en/experience.tex
+vim latex/resume/en/experience.tex
 
 # Edit corresponding JSON
 vim data/cv-en.json
 
 # Edit InfoJobs file (if applicable)
-vim resume/infojobs.md
+vim latex/resume/infojobs.md
 
 # Commit together
-git add resume/en/experience.tex data/cv-en.json resume/infojobs.md
+git add latex/resume/en/experience.tex data/cv-en.json latex/resume/infojobs.md
 git commit -m "Add new work experience"
 git push  # Triggers automatic deployment
 ```
 
 ### Adding New Work Experience
-1. Open `resume/{lang}/experience.tex`
+1. Open `latex/resume/{lang}/experience.tex`
 2. Add new `\cventry` block at the top (reverse chronological)
 3. Include: company, location, dates, achievement-focused bullets
 4. Update `data/cv-{lang}.json` with same content
@@ -175,20 +175,20 @@ git push  # Triggers automatic deployment
 6. Keep formatting consistent with existing entries
 
 ### Updating Skills
-1. Edit `resume/{lang}/skills.tex`
+1. Edit `latex/resume/{lang}/skills.tex`
 2. Update `data/cv-{lang}.json` skills section
 3. Maintain skill categories consistently across formats
 4. Keep skills relevant and up-to-date
 
 ### Adding Open Source Projects
-1. Edit `resume/{lang}/opensource.tex`
+1. Edit `latex/resume/{lang}/opensource.tex`
 2. Update `data/cv-{lang}.json` opensource array
 3. Add `\cventry` with role, project name, link, dates
 4. Include achievement-focused descriptions
 5. Maintain reverse chronological order
 
 ### Updating Personal Information
-1. Edit `resume/{lang}/profile.tex`
+1. Edit `latex/resume/{lang}/profile.tex`
 2. Update `data/cv-{lang}.json` profile section
 3. Ensure consistency across all language versions and formats
 
@@ -249,8 +249,8 @@ See `website/README.md` for detailed DNS configuration.
 ## Best Practices for AI Assistance
 
 ### When Editing Content
-- Always specify which format to update (LaTeX, JSON, resume/infojobs.md, or all)
-- Update LaTeX, JSON, and resume/infojobs.md when changing CV content
+- Always specify which format to update (LaTeX, JSON, latex/resume/infojobs.md, or all)
+- Update LaTeX, JSON, and latex/resume/infojobs.md when changing CV content
 - Maintain professional tone and concise descriptions
 - Use action verbs and achievement-focused language
 - Keep technical terms in English even in Spanish version
@@ -270,14 +270,14 @@ See `website/README.md` for detailed DNS configuration.
 - Check GitHub Actions logs for deployment issues
 
 ## Color Scheme
-- Primary color: `awesome-concrete` (defined in resume.tex)
+- Primary color: `awesome-concrete` (defined in `latex/resume.tex`)
 - Available colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange, awesome-nephritis, awesome-concrete, awesome-darknight
 - Section highlighting can be toggled with `\setbool{acvSectionColorHighlight}{true/false}`
 
 ## Fonts
 - Main font: Roboto (Light, Regular, Medium, Bold variants)
 - Icon font: FontAwesome 4.x
-- All fonts stored in `fonts/` directory
+- All fonts stored in `latex/fonts/` directory
 
 ## Maintenance Notes
 - Keep version number updated in footer (currently 1.2.1)

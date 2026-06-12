@@ -8,34 +8,34 @@ This file guides coding agents working in this repository so updates stay consis
 
 ## Project Outputs
 1. PDF resumes generated from LaTeX:
-- `resume-en.pdf`
-- `resume-es.pdf`
+- `latex/output/resume-en.pdf`
+- `latex/output/resume-es.pdf`
 
 2. Website generated with Astro from JSON data:
 - English route: `/`
 - Spanish route: `/es/`
 
 3. InfoJobs profile source:
-- `resume/infojobs.md`
+- `latex/resume/infojobs.md`
 
 ## Core Rule: Keep Content In Sync
 When updating CV content, update all relevant representations in the same change:
-- LaTeX: `resume/en/*.tex` and/or `resume/es/*.tex`
+- LaTeX: `latex/resume/en/*.tex` and/or `latex/resume/es/*.tex`
 - Website/Shared JSON: `data/cv-en.json` and/or `data/cv-es.json`
-- InfoJobs text: `resume/infojobs.md` (especially for Spanish-facing profile text)
+- InfoJobs text: `latex/resume/infojobs.md` (especially for Spanish-facing profile text)
 
 Do not update only one format unless explicitly requested.
 
 ## Repository Map
-- Root LaTeX entrypoint: `resume.tex`
-- Custom class: `document-format.cls`
-- Fonts and icon package: `fonts/`, `fontawesome.sty`
+- Root LaTeX entrypoint: `latex/resume.tex`
+- Custom class: `latex/document-format.cls`
+- Fonts and icon package: `latex/fonts/`, `latex/fontawesome.sty`
 - LaTeX content modules:
-  - `resume/en/` and `resume/es/`
+  - `latex/resume/en/` and `latex/resume/es/`
   - `profile.tex`, `summary.tex`, `skills.tex`, `experience.tex`, `education.tex`, `opensource.tex`, plus optional topic sections
 - Build scripts:
-  - Linux/macOS: `scripts/build-resume.sh`
-  - Windows: `scripts/build-resume.cmd`
+  - Linux/macOS: `latex/scripts/build-resume.sh`
+  - Windows: `latex/scripts/build-resume.cmd`
 - Website app: `website/`
   - Content source (shared): `data/cv-en.json`, `data/cv-es.json`
   - Pages: `website/src/pages/index.astro`, `website/src/pages/es/index.astro`
@@ -46,8 +46,8 @@ Do not update only one format unless explicitly requested.
 Run from repository root unless noted.
 
 ### Build PDF resumes
-- English: `sh ./scripts/build-resume.sh en`
-- Spanish: `sh ./scripts/build-resume.sh es`
+- English: `sh ./latex/scripts/build-resume.sh en`
+- Spanish: `sh ./latex/scripts/build-resume.sh es`
 
 ### Website commands (must run inside `website/`)
 - Install deps: `npm install`
@@ -70,7 +70,7 @@ Important: Node/npm commands belong in `website/`.
 
 ### LaTeX updates
 - Keep section ordering and structure consistent across languages.
-- Preserve macro usage from `document-format.cls`.
+- Preserve macro usage from `latex/document-format.cls`.
 - Keep entries reverse-chronological for experience and education.
 - Prefer concise, achievement-focused bullets.
 
@@ -87,18 +87,18 @@ Important: Node/npm commands belong in `website/`.
 ## Common Task Playbooks
 
 ### Add or edit work experience
-1. Update `resume/en/experience.tex` and `resume/es/experience.tex`.
+1. Update `latex/resume/en/experience.tex` and `latex/resume/es/experience.tex`.
 2. Update `data/cv-en.json` and `data/cv-es.json` experience sections.
-3. Update `resume/infojobs.md` if the change affects profile-facing Spanish content.
+3. Update `latex/resume/infojobs.md` if the change affects profile-facing Spanish content.
 4. Build/validate PDFs and website.
 
 ### Update skills
-1. Edit `resume/en/skills.tex` and `resume/es/skills.tex`.
+1. Edit `latex/resume/en/skills.tex` and `latex/resume/es/skills.tex`.
 2. Edit matching skills sections in both JSON files.
 3. Keep category naming and ordering coherent.
 
 ### Update profile/contact
-1. Edit both language `profile.tex` files.
+1. Edit both language `latex/resume/*/profile.tex` files.
 2. Edit profile sections in both JSON files.
 3. Ensure links/usernames match across all outputs.
 
@@ -126,7 +126,7 @@ Important: Node/npm commands belong in `website/`.
 4. Diff quality is clean (no accidental reformatting or unrelated edits).
 
 ### Pre-push validation checklist
-1. Build affected PDF language(s): `sh ./scripts/build-resume.sh en|es`.
+1. Build affected PDF language(s): `sh ./latex/scripts/build-resume.sh en|es`.
 2. Build website in `website/`: `npm run build`.
 3. Spot-check routes `/` and `/es/` for rendering regressions.
 4. Confirm no generated artifacts are staged for commit.
