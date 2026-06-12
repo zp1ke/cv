@@ -1,9 +1,10 @@
+[tools]
+node = "22"
+python = "3.14"
+
 [env]
 # Set NODE_ENV for website builds
 NODE_ENV = "production"
-
-[tools]
-node = "22"
 
 [tasks.build-en]
 description = "Build English resume PDF"
@@ -43,6 +44,55 @@ depends = ["build-all"]
 description = "Generate InfoJobs output from canonical data"
 run = "python3 scripts/generate-infojobs.py"
 
+[tasks.generate-linkedin]
+description = "Generate LinkedIn output from canonical data"
+run = "python3 scripts/generate-linkedin.py"
+
+[tasks.build]
+description = "Macro build task: build one output for one language (output: latex|linkedin|infojobs|website, lang: en|es)"
+usage = '''
+arg "<output>" help="Output target" {
+  choices "latex" "linkedin" "infojobs" "website"
+}
+arg "<lang>" help="Language" {
+  choices "en" "es"
+}
+'''
+run = """
+output="${usage_output?}"
+lang="${usage_lang?}"
+
+case "$output" in
+  latex)
+    if [ "$lang" = "en" ]; then
+      mise run build-en
+    else
+      mise run build-es
+    fi
+    ;;
+  linkedin)
+    echo "Note: LinkedIn generator currently produces both en and es outputs."
+    mise run generate-linkedin
+    ;;
+  infojobs)
+    if [ "$lang" != "es" ]; then
+      echo "Error: infojobs output is currently available only for 'es'."
+      exit 1
+    fi
+    mise run generate-infojobs
+    ;;
+  website)
+    echo "Note: website build is bilingual; language parameter is accepted for interface consistency."
+    mise run build-web
+    ;;
+  *)
+    echo "Error: unsupported output '$output'."
+    echo "Supported outputs: latex | linkedin | infojobs | website"
+    exit 1
+    ;;
+esac
+"""
+
 [tasks.install]
 description = "Install website dependencies"
 dir = "website"
@@ -73,11 +123,12 @@ npm run preview
 depends = ["build-web"]
 
 [tasks.deploy]
-description = "Full build: PDFs + website + copy PDFs + InfoJobs"
+description = "Full build: PDFs + website + copy PDFs + LinkedIn + InfoJobs"
 run = """
 mise run build-all
 mise run build-web
 mise run copy-pdfs
+mise run generate-linkedin
 mise run generate-infojobs
 """
 
@@ -111,9 +162,11 @@ echo "  mise run build-web     - Build website for production"
 echo "  mise run preview-web   - Preview production build locally"
 echo ""
 echo "Utilities:"
+echo "  mise run build -- <output> <lang> - Macro build dispatcher"
 echo "  mise run copy-pdfs     - Copy PDFs to website/dist/ folder"
+echo "  mise run generate-linkedin - Generate LinkedIn output"
 echo "  mise run generate-infojobs - Generate InfoJobs output"
-echo "  mise run deploy        - Full build: PDFs + website + copy PDFs + InfoJobs"
+echo "  mise run deploy        - Full build: PDFs + website + copy PDFs + LinkedIn + InfoJobs"
 echo "  mise run install       - Install website dependencies"
 echo "  mise run clean         - Clean build artifacts"
 """
