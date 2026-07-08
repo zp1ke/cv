@@ -28,6 +28,7 @@ Senior Full-Stack Developer con más de 11 años construyendo aplicaciones empre
 - Construí app móvil Flutter multiplataforma permitiendo firma segura de documentos con autenticación biométrica y capacidades offline.
 - Implementé infraestructura PKI y sistema de gestión de certificados asegurando cumplimiento con regulaciones nacionales de firma digital.
 - Reduje tiempo de procesamiento de documentos en 60% mediante pipeline optimizado de renderizado PDF y cola de trabajos asíncrona.
+- Integré Infisical para gestión centralizada de secretos y credenciales, eliminando secretos hardcodeados y reduciendo el riesgo de exposición en todos los entornos.
 
 ### Fundador y Desarrollador Principal
 **Empresa:** TuFacturero (SaaS Auto-Fundado)

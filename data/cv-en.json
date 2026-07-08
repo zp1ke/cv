@@ -27,7 +27,8 @@
         "Architected Spring Boot microservices backend with PostgreSQL, handling high-volume cryptographic operations and SRI (tax authority) integrations",
         "Built cross-platform Flutter mobile app enabling secure document signing with biometric authentication and offline capabilities",
         "Implemented PKI infrastructure and certificate management system ensuring compliance with national digital signature regulations",
-        "Reduced document processing time by 60% through optimized PDF rendering pipeline and asynchronous job queuing"
+        "Reduced document processing time by 60% through optimized PDF rendering pipeline and asynchronous job queuing",
+        "Integrated Infisical for centralized secrets and credentials management, eliminating hardcoded secrets and reducing exposure risk across all environments"
       ]
     },
     {
