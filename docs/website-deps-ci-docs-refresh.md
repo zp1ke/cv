@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: not started.** Refresh the Astro website lockfile, Dependabot, GitHub Actions pins, and the docs that still describe a DevContainer, `dev.sh`, and the old Pages URL. Then host a Play-compliant privacy policy for Forma and correct the existing app policies on this site. Not tied to a release date.
+> **Status: in progress.** P1 is done: Dependabot watches npm in `/website`. Still to do: Astro lockfile, CI pins, docs, and the Play privacy policies. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -18,7 +18,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 ## Why
 
 - `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. Locked `astro@5.16.5` is inside the critical advisory range `astro <=7.4.6` reported by `npm audit` against that lockfile.
-- `.github/dependabot.yml` only lists `package-ecosystem: devcontainers` at `/`. There is no `.devcontainer`, so nothing opens update PRs for `website/package-lock.json`.
+- Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. CI still caches `website/package.json` instead of the lockfile (P3).
 - Docs contradict the workflow and the live site config: deploy triggers on `main`, `website/astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`, and `website/public/CNAME` is `sp1ke.dev`.
 - Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. The URL must be an active public `http://` or `https://` page with a valid SSL certificate, reachable worldwide with no login and no geofencing, shown as a normal non-editable webpage (not a PDF), specific to that app, and it must disclose how the app collects, uses, and shares user data, including the types of parties it is shared with. Forma has no such page or in-app link. The policies already hosted here do not all meet that bar.
 
@@ -31,7 +31,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 | Advisory | `npm audit` on that lockfile reported 1 critical, 20 high, 2 moderate, 1 low. Critical item was `astro <=7.4.6`. `npm audit fix --force` proposed `astro@7.4.1`, which is still inside that range. |
 | Registry (at writing) | Latest `astro` was `7.4.13` (`engines.node >=22.23.4`). Latest `astro@5` was `5.18.2`. Latest `@astrojs/check` was `0.9.12`, peer `typescript@^5.0.0 \|\| ^6.0.0`. Latest `typescript` was `7.0.2`; latest 5.x was the already-locked `5.9.3`. |
 | Node pin | `mise.toml` `[tools] node = "22"`. CI `actions/setup-node@v4` uses `node-version: '22'`. Neither pins `22.23` or newer. |
-| Dependabot | `.github/dependabot.yml` weekly `devcontainers` at `/` only. No `.devcontainer` directory. |
+| Dependabot | `.github/dependabot.yml` schedules weekly `npm` updates for `/website`. It does not list `devcontainers`. No `.devcontainer` directory. |
 | CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `cache-dependency-path: website/package.json`. Actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`. TeX Live is installed with `apt-get` on every build. |
 | Actions tags (at writing) | Latest releases: `actions/checkout` `v7.0.1`, `actions/setup-node` `v7.1.0`, `actions/upload-pages-artifact` `v5.0.0`, `actions/deploy-pages` `v5.0.1`. |
 | Site config | `website/astro.config.mjs` is `output: 'static'`, `site: 'https://sp1ke.dev'`, `base: '/'`. `website/public/CNAME` contains `sp1ke.dev`. |
@@ -59,7 +59,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 | Phase | Scope | Status |
 |---|---|---|
-| P1 | Dependabot watches `website/` npm | not started |
+| P1 | Dependabot watches `website/` npm | completed |
 | P2 | Astro 7 lockfile, Node pin, devDependencies | not started |
 | P3 | CI npm cache path and Actions tags | not started |
 | P4 | README drift (`main`, mise, `sp1ke.dev`) | not started |
@@ -70,14 +70,14 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P1. Point Dependabot at the website npm lockfile
 
-**Status: not started.** Nothing currently opens dependency update PRs. This is config-only and does not change the installed tree.
+**Status: completed.** `.github/dependabot.yml` now schedules weekly npm updates for `/website`. The unused `devcontainers` entry is gone. This does not change the installed tree.
 
 **Steps.**
 
-- [ ] In `.github/dependabot.yml`, remove the `package-ecosystem: devcontainers` entry at `directory: "/"`.
-- [ ] Add `package-ecosystem: npm`, `directory: "/website"`, `schedule.interval: weekly`.
-- [ ] Confirm the file does not reference `.devcontainer` and that no `.devcontainer` directory is created in this phase.
-- [ ] Verify `website/package.json` and `website/package-lock.json` remain the only npm manifests Dependabot is pointed at.
+- [x] In `.github/dependabot.yml`, remove the `package-ecosystem: devcontainers` entry at `directory: "/"`.
+- [x] Add `package-ecosystem: npm`, `directory: "/website"`, `schedule.interval: weekly`.
+- [x] Confirm the file does not reference `.devcontainer` and that no `.devcontainer` directory is created in this phase.
+- [x] Verify `website/package.json` and `website/package-lock.json` remain the only npm manifests Dependabot is pointed at.
 
 **Done when:** `.github/dependabot.yml` lists weekly npm updates for `/website` and does not list `devcontainers`.
 
@@ -175,7 +175,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 - [ ] `website/package-lock.json` locks `astro` at `>=7.4.7`, and `npm run build` in `website/` succeeds.
 - [ ] `mise.toml`, `.github/workflows/deploy.yml`, and `website/package.json` `engines` agree on a Node 22 release that satisfies that Astro `engines` field.
-- [ ] `.github/dependabot.yml` schedules weekly npm updates for `/website` and does not list `devcontainers`.
+- [x] `.github/dependabot.yml` schedules weekly npm updates for `/website` and does not list `devcontainers`.
 - [ ] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
 - [ ] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.
 - [ ] `website/src/pages/forma.astro` exists, Forma links to `https://sp1ke.dev/forma`, and the page discloses on-device data, export, and the release permissions without claiming analytics or accounts.
