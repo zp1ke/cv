@@ -2,21 +2,26 @@
 
 Professional CV/Resume with dual outputs:
 - **📄 PDF**: LaTeX-generated professional resumes in English and Spanish
-- **🌐 Website**: Modern portfolio hosted on [GitHub Pages](https://zp1ke.github.io/cv/)
+- **🌐 Website**: Modern portfolio hosted at [sp1ke.dev](https://sp1ke.dev/)
 
 Both formats are automatically built and deployed via GitHub Actions on every push to main.
 
 ## Quick Links
 
-- 🌍 **Live Website**: https://zp1ke.github.io/cv/
-- 📥 **Download PDF**: [English](https://zp1ke.github.io/cv/resume-en.pdf) | [Español](https://zp1ke.github.io/cv/resume-es.pdf)
+- 🌍 **Live Website**: https://sp1ke.dev/
+- 📥 **Download PDF**: [English](https://sp1ke.dev/resume-en.pdf) | [Español](https://sp1ke.dev/resume-es.pdf)
 
 ## Development Environment
 
-This project includes a DevContainer configuration for easy setup with VS Code:
-- Pre-configured with LaTeX (TeXLive full scheme) and Node.js
-- LaTeX Workshop extension
-- No manual installation required
+Local tasks live in `mise.toml`.
+
+```bash
+mise run dev-web     # http://localhost:4321
+mise run build-web   # production website build
+mise run deploy      # PDFs, website, LinkedIn, and InfoJobs
+```
+
+See `README-DEV.md` for the full task list.
 
 ## Prerequisites
 
@@ -35,7 +40,7 @@ sudo apt install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 Download from [MacTeX](https://www.tug.org/mactex/mactex-download.html)
 
 ### For Website Development
-- **Node.js** 18+ and npm
+- **Node.js** 22.23.5 and npm (`mise.toml` pins this; Astro requires `>=22.23.4`)
 - Download from [nodejs.org](https://nodejs.org/)
 
 ## Build
@@ -65,7 +70,7 @@ npm run build      # Production build
 
 ### Automatic Deployment
 
-Push to `master` branch to trigger automatic build and deployment:
+Push to `main` to trigger automatic build and deployment:
 1. ✅ Both PDFs are compiled
 2. ✅ Website is built with Astro
 3. ✅ Everything deployed to GitHub Pages
@@ -124,16 +129,14 @@ git commit -m "Sync CV content across outputs"
 git push
 ```
 
-## Custom Domain Setup
+## Custom Domain
 
-To use your own domain instead of `zp1ke.github.io/cv`:
+The site is already served at https://sp1ke.dev.
 
-1. Create `website/public/CNAME` with your domain
-2. Update `website/astro.config.mjs` (change `site` and `base`)
-3. Configure DNS records at your domain provider
-4. Enable custom domain in GitHub Pages settings
+- `website/public/CNAME` is `sp1ke.dev`
+- `website/astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`
 
-See `website/README.md` for detailed instructions.
+DNS and the GitHub Pages custom domain are already configured. See `website/README.md` for the record shapes used for that setup.
 
 ## Libraries & Credits
 

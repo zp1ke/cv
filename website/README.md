@@ -24,7 +24,7 @@ This directory contains the Astro-based static website for the CV, deployed to G
 
 ## Deployment
 
-The website is automatically deployed to GitHub Pages when you push to the `master` branch.
+The website is automatically deployed to GitHub Pages when you push to `main`.
 
 ### GitHub Pages Setup (First Time Only)
 
@@ -37,16 +37,20 @@ The website is automatically deployed to GitHub Pages when you push to the `mast
 
 To use your custom domain:
 
-1. **Add CNAME file** (create `website/public/CNAME`):
+This repository is already configured for `https://sp1ke.dev`: `public/CNAME` is `sp1ke.dev`, and `astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`.
+
+For a different domain, the same two files are the place to change:
+
+1. **Set `public/CNAME`** to the domain, with no scheme:
    ```
    yourdomain.com
    ```
 
-2. **Update `astro.config.mjs`**:
+2. **Set `astro.config.mjs`** to that origin and a root base:
    ```js
    export default defineConfig({
      site: 'https://yourdomain.com',
-     base: '/',  // Change from '/cv' to '/'
+     base: '/',
      // ... rest of config
    });
    ```
@@ -76,7 +80,7 @@ To use your custom domain:
    ```
    Type: CNAME
    Name: cv
-   Value: zp1ke.github.io
+   Value: <user>.github.io
    ```
 
 4. **Enable custom domain in GitHub:**
@@ -145,7 +149,7 @@ data/
 
 **Build fails:**
 - Check that all JSON files are valid (no trailing commas, proper quotes)
-- Ensure Node.js version is 18 or higher
+- Ensure Node.js is 22.23.5 (`mise.toml` pins this; Astro requires `>=22.23.4`)
 
 **PDFs not showing:**
 - Verify PDFs were built successfully in `latex/output/`

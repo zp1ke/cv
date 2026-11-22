@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: in progress.** P1–P3 are done: Dependabot watches npm in `/website`, the lockfile is `astro@7.4.13` on Node `22.23.5`, and CI caches that lockfile with current Actions tags. Still to do: docs and the Play privacy policies. Not tied to a release date.
+> **Status: in progress.** P1–P4 are done: Dependabot, the Astro 7 lockfile, CI pins, and the READMEs now match `main`, mise, and `https://sp1ke.dev`. Still to do: the Play privacy policies. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -19,7 +19,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 
 - `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. P2 replaced locked `astro@5.16.5` (inside `astro <=7.4.6`) with `astro@7.4.13`. `npm audit` on that lockfile now reports 0 vulnerabilities.
 - Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. P3 pointed the npm cache at `website/package-lock.json` and bumped the four Actions pins.
-- Docs contradict the workflow and the live site config: deploy triggers on `main`, `website/astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`, and `website/public/CNAME` is `sp1ke.dev`.
+- The READMEs used to describe `master`, `dev.sh`, a missing DevContainer, and `https://zp1ke.github.io/cv/`. P4 aligned them with deploy on `main`, `mise.toml`, and `https://sp1ke.dev`.
 - Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. The URL must be an active public `http://` or `https://` page with a valid SSL certificate, reachable worldwide with no login and no geofencing, shown as a normal non-editable webpage (not a PDF), specific to that app, and it must disclose how the app collects, uses, and shares user data, including the types of parties it is shared with. Forma has no such page or in-app link. The policies already hosted here do not all meet that bar.
 
 ## Current state
@@ -35,7 +35,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 | CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `node-version` is `22.23.5`. `cache-dependency-path` is `website/package-lock.json`. Actions: `actions/checkout@v7.0.1`, `actions/setup-node@v7.1.0`, `actions/upload-pages-artifact@v5.0.0`, `actions/deploy-pages@v5.0.1`. TeX Live is installed with `apt-get` on every build. |
 | Actions tags (at writing) | Latest releases: `actions/checkout` `v7.0.1`, `actions/setup-node` `v7.1.0`, `actions/upload-pages-artifact` `v5.0.0`, `actions/deploy-pages` `v5.0.1`. |
 | Site config | `website/astro.config.mjs` is `output: 'static'`, `site: 'https://sp1ke.dev'`, `base: '/'`. `website/public/CNAME` contains `sp1ke.dev`. |
-| Docs | `README.md` links the live site and PDFs at `https://zp1ke.github.io/cv/`, says push to `master` (line 68) while also saying push to `main` (line 7), and claims a DevContainer that is not in the tree. `README-DEV.md` documents `source dev.sh`, direnv, and `cv-*` commands; `dev.sh` and `.envrc` are absent. It requires Node.js 18+. `website/README.md` says deploy on `master` and uses `zp1ke.github.io` as the subdomain CNAME example. Real local tasks live in `mise.toml`. |
+| Docs | `README.md`, `README-DEV.md`, and `website/README.md` describe deploy on `main`, the live host `https://sp1ke.dev`, and `mise.toml` tasks. Node is documented as `22.23.5`. They do not tell the reader to source `dev.sh` or use a DevContainer. |
 | Privacy pages | Astro routes: `website/src/pages/minesweeper.astro` (`/minesweeper`), `website/src/pages/aquapact.astro` (`/aquapact`), `website/src/pages/teditox.astro` (`/teditox`), wrapped by `website/src/layouts/PrivacyLayout.astro`. No `website/src/pages/forma.astro`. Pages are HTML, not PDFs. `website/astro.config.mjs` `site` is `https://sp1ke.dev` and `base` is `/`, so the public URLs are `https://sp1ke.dev/minesweeper`, `/aquapact`, and `/teditox`. |
 | Forma | App repo `~/Documents/github/forma`. `android/app/build.gradle.kts` sets `applicationId = "com.sp1ke.forma"`. No privacy URL in `lib/`. Release `android/app/src/main/AndroidManifest.xml` requests `RECEIVE_BOOT_COMPLETED` and `SCHEDULE_EXACT_ALARM` only. `INTERNET` is only in the debug and profile manifests. `lib/data/services/android_alert_notifier.dart` requests notification and exact-alarm permission. Data stays on device (`sqflite`, `shared_preferences`): profiles (name, color, units, quiet hours), routines, session logs, body measurements and notes (`lib/domain/models/profile.dart`, `body_entry.dart`, `session_log.dart`). Export is a user-picked `forma-export.zip` via `file_picker` (`lib/data/services/export_files.dart`). |
 | Existing policy gaps | `minesweeper.astro` is a generic template (last updated July 13, 2024). It asserts accounts, affiliates, first and last name, usage data, IP address, device IDs, Google login, and sharing with other users. MineSweeper source is not in this repo or `~/Documents/github`. `aquapact.astro` (February 12, 2025) describes local hydration data and no third-party sharing, but includes a non-disclosure bullet ("New Feature: Future updates may include additional features") and says changes are posted within the app rather than on this URL. `teditox.astro` (August 12, 2025) matches local files and settings, but does not state that the release manifest has no `INTERNET` permission. Teditox already opens `https://sp1ke.dev/teditox` from `about_screen.dart`, under a comment that still says "placeholder". All three contact `miche.atucha@gmail.com`. `PrivacyLayout.astro` renders an English-only slot. |
@@ -62,7 +62,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 | P1 | Dependabot watches `website/` npm | completed |
 | P2 | Astro 7 lockfile, Node pin, devDependencies | completed |
 | P3 | CI npm cache path and Actions tags | completed |
-| P4 | README drift (`main`, mise, `sp1ke.dev`) | not started |
+| P4 | README drift (`main`, mise, `sp1ke.dev`) | completed |
 | P5 | Forma Play privacy policy | not started |
 | P6 | Fix hosted MineSweeper, AquaPact, and Teditox policies | not started |
 
@@ -113,17 +113,17 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P4. Align READMEs with mise, `main`, and `sp1ke.dev`
 
-**Status: not started.** Docs still send people at missing files and the project-pages URL. Do this after P2 so the Node prerequisite matches that pin. Privacy pages are P5 and P6, not part of this phase.
+**Status: completed.** The three READMEs now describe deploy on `main`, `https://sp1ke.dev`, and the `mise.toml` tasks. Node is documented as `22.23.5`. Privacy pages remain P5 and P6.
 
 **Steps.**
 
-- [ ] In `README.md`, replace live-site and PDF links that use `https://zp1ke.github.io/cv/` with `https://sp1ke.dev/` and `/resume-en.pdf` / `/resume-es.pdf`, matching `website/public/CNAME` and `base: '/'`.
-- [ ] In `README.md` and `website/README.md`, change deploy instructions that say `master` so they say `main`, matching `.github/workflows/deploy.yml`.
-- [ ] Remove the DevContainer section from `README.md` (no `.devcontainer` exists). Point local setup at `mise.toml` tasks (`mise run dev-web`, `mise run build-web`, `mise run deploy`) instead of `source dev.sh`.
-- [ ] Rewrite `README-DEV.md` so it no longer tells the reader to `source dev.sh`, allow direnv, or run `cv-*` commands. Document the tasks already defined in `mise.toml`. Replace the Node.js 18+ prerequisite with the Node pin from P2.
-- [ ] In `README.md` Custom Domain Setup, stop describing creation of `website/public/CNAME` and edits to `site` / `base` as unfinished work. Those files already set `sp1ke.dev` and `base: '/'`.
-- [ ] In `website/README.md`, replace the subdomain example value `zp1ke.github.io` so it is not presented as this repo's current Pages host.
-- [ ] Verify `rg` over `README.md`, `README-DEV.md`, and `website/README.md` no longer finds `source dev.sh`, `Node.js 18+`, `DevContainer`, `push to \`master\``, or `https://zp1ke.github.io/cv/` as current instructions.
+- [x] In `README.md`, replace live-site and PDF links that use `https://zp1ke.github.io/cv/` with `https://sp1ke.dev/` and `/resume-en.pdf` / `/resume-es.pdf`, matching `website/public/CNAME` and `base: '/'`.
+- [x] In `README.md` and `website/README.md`, change deploy instructions that say `master` so they say `main`, matching `.github/workflows/deploy.yml`.
+- [x] Remove the DevContainer section from `README.md` (no `.devcontainer` exists). Point local setup at `mise.toml` tasks (`mise run dev-web`, `mise run build-web`, `mise run deploy`) instead of `source dev.sh`.
+- [x] Rewrite `README-DEV.md` so it no longer tells the reader to `source dev.sh`, allow direnv, or run `cv-*` commands. Document the tasks already defined in `mise.toml`. Replace the Node.js 18+ prerequisite with the Node pin from P2.
+- [x] In `README.md` Custom Domain Setup, stop describing creation of `website/public/CNAME` and edits to `site` / `base` as unfinished work. Those files already set `sp1ke.dev` and `base: '/'`.
+- [x] In `website/README.md`, replace the subdomain example value `zp1ke.github.io` so it is not presented as this repo's current Pages host.
+- [x] Verify `rg` over `README.md`, `README-DEV.md`, and `website/README.md` no longer finds `source dev.sh`, `Node.js 18+`, `DevContainer`, `push to \`master\``, or `https://zp1ke.github.io/cv/` as current instructions.
 
 **Done when:** those three docs describe deploy on `main`, the live host `https://sp1ke.dev`, and mise tasks, and do not instruct the reader to source `dev.sh` or use a DevContainer.
 
@@ -177,7 +177,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 - [x] `mise.toml`, `.github/workflows/deploy.yml`, and `website/package.json` `engines` agree on a Node 22 release that satisfies that Astro `engines` field.
 - [x] `.github/dependabot.yml` schedules weekly npm updates for `/website` and does not list `devcontainers`.
 - [x] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
-- [ ] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.
+- [x] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.
 - [ ] `website/src/pages/forma.astro` exists, Forma links to `https://sp1ke.dev/forma`, and the page discloses on-device data, export, and the release permissions without claiming analytics or accounts.
 - [ ] `minesweeper.astro` no longer asserts unverified name, usage-data, IP, or Google-login collection. `aquapact.astro` has no "New Feature" filler. `teditox.astro` states that the release manifest does not request `INTERNET`.
 

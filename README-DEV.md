@@ -1,149 +1,101 @@
 # Development Setup Guide
 
-This guide explains how to use the development utilities for the CV project.
-
-## Quick Start
-
-### Option 1: Manual sourcing (works immediately)
-
-```bash
-# In the project directory
-source dev.sh
-
-# Show available commands
-cv-help
-
-# Example workflow
-cv-build-all      # Build both PDFs
-cv-dev-web        # Start website dev server
-```
-
-### Option 2: Auto-load with direnv (recommended)
-
-[direnv](https://direnv.net/) automatically loads the development environment when you enter the project directory.
-
-#### Installation
-
-**Ubuntu/Debian:**
-```bash
-sudo apt install direnv
-echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-**macOS:**
-```bash
-brew install direnv
-echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-**Other shells:** See [direnv documentation](https://direnv.net/docs/hook.html)
-
-#### Enable for this project
-
-```bash
-cd /path/to/cv
-direnv allow
-```
-
-Now the dev commands will be automatically available whenever you `cd` into this directory!
-
-### Option 3: Global installation
-
-Add to your `~/.bashrc` or `~/.zshrc`:
-
-```bash
-# Load CV project dev utilities
-[ -f ~/Projects/github/cv/dev.sh ] && source ~/Projects/github/cv/dev.sh
-```
-
-## Available Commands
-
-### PDF Generation
-
-- **`cv-build-en`** - Build English resume PDF
-- **`cv-build-es`** - Build Spanish resume PDF
-- **`cv-build-all`** - Build both English and Spanish PDFs
-
-### Website Development
-
-- **`cv-dev-web`** - Start development server at http://localhost:4321
-- **`cv-build-web`** - Build website for production
-- **`cv-preview-web`** - Preview production build locally
-
-### Utilities
-
-- **`cv-copy-pdfs`** - Copy generated PDFs to website/dist/ folder
-- **`cv-deploy`** - Full deployment build (PDFs + website + copy)
-- **`cv-install`** - Install website Node.js dependencies
-- **`cv-clean`** - Clean all build artifacts
-- **`cv-help`** - Show help message with all commands
-
-## Common Workflows
-
-### Content update sync (required)
-When CV content changes, use this order:
-1. Update canonical JSON in `data/cv-en.json` and/or `data/cv-es.json`
-2. Mirror changes in LaTeX files under `latex/resume/en/` and/or `latex/resume/es/`
-3. Regenerate LinkedIn files: `python3 scripts/generate-linkedin.py`
-4. Regenerate InfoJobs output: `python3 scripts/generate-infojobs.py`
-5. Validate builds (`cv-build-all`, then `cv-build-web`)
-
-### Local development (website only)
-```bash
-cv-dev-web
-# Opens http://localhost:4321
-```
-
-### Update PDFs and test locally
-```bash
-cv-build-all      # Generate PDFs
-cv-dev-web        # Test in browser
-```
-
-### Full deployment preparation
-```bash
-cv-deploy         # Builds everything and copies PDFs to website
-cv-preview-web    # Preview final result
-```
-
-### Clean start
-```bash
-cv-clean          # Remove build artifacts
-cv-install        # Reinstall dependencies
-cv-deploy         # Full rebuild
-```
+Local tasks are defined in `mise.toml`. Run them from the repository root with `mise run`. There is no `dev.sh` and no direnv setup.
 
 ## Prerequisites
 
-- **XeLaTeX** - For PDF generation (TeXLive distribution)
-- **Node.js 18+** - For website development
-- **npm** - Comes with Node.js
+- **XeLaTeX** (`xelatex` on `PATH`) for PDF generation
+- **Node.js 22.23.5** for the website. `mise.toml` pins this release. Astro requires `>=22.23.4`.
+- **npm**, installed with that Node release
+- **Python 3.14**, pinned in `mise.toml`, for the LinkedIn and InfoJobs generators
+- [mise](https://mise.jdx.dev/) to install those tool versions and run the tasks
+
+## Tasks
+
+`mise run help` prints the same list.
+
+### PDF generation
+
+- `mise run build-en` — English resume PDF
+- `mise run build-es` — Spanish resume PDF
+- `mise run build-all` — both PDFs
+
+### Website
+
+- `mise run dev-web` — development server at http://localhost:4321
+- `mise run build-web` — production build (`astro check && astro build`)
+- `mise run preview-web` — preview the production build locally
+- `mise run install` — `npm install --include=dev` in `website/`
+
+`mise.toml` sets `NODE_ENV=production`. The install task passes `--include=dev` so `@astrojs/check` and TypeScript are still installed.
+
+### Generators and full build
+
+- `mise run generate-linkedin` — both English and Spanish LinkedIn files
+- `mise run generate-infojobs` — Spanish InfoJobs profile only
+- `mise run copy-pdfs` — copy `latex/output/resume-en.pdf` and `resume-es.pdf` into `website/dist/`
+- `mise run deploy` — PDFs, website, copy PDFs, LinkedIn, and InfoJobs
+- `mise run clean` — remove LaTeX and website build artifacts
+- `mise run build -- <output> <lang>` — dispatcher for `latex`, `linkedin`, `infojobs`, or `website`, with `en` or `es`
+
+InfoJobs is Spanish only. LinkedIn and the website build always produce both languages.
+
+## Common workflows
+
+### Content update
+
+1. Update `data/cv-en.json` and/or `data/cv-es.json`.
+2. Mirror the change in `latex/resume/en/` and/or `latex/resume/es/`.
+3. `mise run generate-linkedin`
+4. `mise run generate-infojobs`
+5. `mise run build-all`, then `mise run build-web`
+
+### Website only
+
+```bash
+mise run dev-web
+```
+
+### PDFs, then the site
+
+```bash
+mise run build-all
+mise run dev-web
+```
+
+### Full local build
+
+```bash
+mise run deploy
+mise run preview-web
+```
+
+### Clean start
+
+```bash
+mise run clean
+mise run install
+mise run deploy
+```
 
 ## Troubleshooting
 
-### Commands not found
-- Make sure you've sourced the script: `source dev.sh`
-- Or allow direnv: `direnv allow`
-- Check your shell configuration
+### `mise: command not found`
+
+Install mise, then run the task again from the repository root. Do not source a project shell script; there is not one.
 
 ### PDF build fails
-- Verify XeLaTeX is installed: `xelatex --version`
-- Check for LaTeX errors in build output
 
-### Website won't start
-- Install dependencies: `cv-install`
-- Check Node.js version: `node --version` (should be 18+)
-- Clear cache: `rm -rf website/node_modules website/dist`
+Check `xelatex --version`. LaTeX errors are printed by `latex/scripts/build-resume.sh`.
 
-### PDFs not appearing in website
-- Run `cv-copy-pdfs` after building PDFs
-- Or use `cv-deploy` for full build pipeline
+### Website will not start
 
-## CI/CD Integration
+`mise run install`, then `mise run dev-web`. `node --version` should be `v22.23.5` when mise is active. To reset the website tree: `rm -rf website/node_modules website/dist`.
 
-The GitHub Actions workflow uses the same build scripts:
-- `.github/workflows/deploy.yml`
+### PDFs missing from the site
 
-Local builds match production builds for consistency.
+`mise run copy-pdfs` after the PDFs exist, or `mise run deploy` for the full pipeline. The copy step needs `website/dist/`.
+
+## CI
+
+`.github/workflows/deploy.yml` builds both PDFs and the website on push to `main`, then deploys `website/dist` to GitHub Pages. It does not run the LinkedIn or InfoJobs generators.
