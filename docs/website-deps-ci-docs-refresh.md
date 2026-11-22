@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: in progress.** P1 is done: Dependabot watches npm in `/website`. Still to do: Astro lockfile, CI pins, docs, and the Play privacy policies. Not tied to a release date.
+> **Status: in progress.** P1 and P2 are done: Dependabot watches npm in `/website`, and the lockfile is `astro@7.4.13` on Node `22.23.5`. Still to do: CI action pins, docs, and the Play privacy policies. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -17,7 +17,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 
 ## Why
 
-- `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. Locked `astro@5.16.5` is inside the critical advisory range `astro <=7.4.6` reported by `npm audit` against that lockfile.
+- `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. P2 replaced locked `astro@5.16.5` (inside `astro <=7.4.6`) with `astro@7.4.13`. `npm audit` on that lockfile now reports 0 vulnerabilities.
 - Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. CI still caches `website/package.json` instead of the lockfile (P3).
 - Docs contradict the workflow and the live site config: deploy triggers on `main`, `website/astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`, and `website/public/CNAME` is `sp1ke.dev`.
 - Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. The URL must be an active public `http://` or `https://` page with a valid SSL certificate, reachable worldwide with no login and no geofencing, shown as a normal non-editable webpage (not a PDF), specific to that app, and it must disclose how the app collects, uses, and shares user data, including the types of parties it is shared with. Forma has no such page or in-app link. The policies already hosted here do not all meet that bar.
@@ -26,13 +26,13 @@ Bring the website toolchain and its operator docs in line with what the repo act
 
 | Area | Today |
 |---|---|
-| Direct deps | `website/package.json` depends on `astro@^5.16.5`, `@astrojs/check@^0.9.6`, and `typescript@^5.6.3`. All three are `dependencies`, not `devDependencies`. No `engines` field. |
-| Lockfile | `website/package-lock.json` is lockfileVersion 3. Locked: `astro@5.16.5`, `@astrojs/check@0.9.6`, `typescript@5.9.3`, `vite@6.4.1`, `rollup@4.53.3`, `sharp@0.34.5`, `devalue@5.6.0`. |
-| Advisory | `npm audit` on that lockfile reported 1 critical, 20 high, 2 moderate, 1 low. Critical item was `astro <=7.4.6`. `npm audit fix --force` proposed `astro@7.4.1`, which is still inside that range. |
+| Direct deps | `website/package.json` depends on `astro@^7.4.13`. `@astrojs/check@^0.9.12` and `typescript@^5.9.3` are `devDependencies`. `engines.node` is `>=22.23.4`. |
+| Lockfile | `website/package-lock.json` locks `astro@7.4.13`, `@astrojs/check@0.9.12`, and `typescript@5.9.3`. |
+| Advisory | `npm audit` after the P2 install reported 0 vulnerabilities. `npm audit fix --force` was not used. |
 | Registry (at writing) | Latest `astro` was `7.4.13` (`engines.node >=22.23.4`). Latest `astro@5` was `5.18.2`. Latest `@astrojs/check` was `0.9.12`, peer `typescript@^5.0.0 \|\| ^6.0.0`. Latest `typescript` was `7.0.2`; latest 5.x was the already-locked `5.9.3`. |
-| Node pin | `mise.toml` `[tools] node = "22"`. CI `actions/setup-node@v4` uses `node-version: '22'`. Neither pins `22.23` or newer. |
+| Node pin | `mise.toml` `[tools] node = "22.23.5"`. CI `actions/setup-node@v4` uses `node-version: '22.23.5'`. `website/package.json` `engines.node` is `>=22.23.4`. |
 | Dependabot | `.github/dependabot.yml` schedules weekly `npm` updates for `/website`. It does not list `devcontainers`. No `.devcontainer` directory. |
-| CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `cache-dependency-path: website/package.json`. Actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`. TeX Live is installed with `apt-get` on every build. |
+| CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `node-version` is `22.23.5`. `cache-dependency-path` is still `website/package.json`. Actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`. TeX Live is installed with `apt-get` on every build. |
 | Actions tags (at writing) | Latest releases: `actions/checkout` `v7.0.1`, `actions/setup-node` `v7.1.0`, `actions/upload-pages-artifact` `v5.0.0`, `actions/deploy-pages` `v5.0.1`. |
 | Site config | `website/astro.config.mjs` is `output: 'static'`, `site: 'https://sp1ke.dev'`, `base: '/'`. `website/public/CNAME` contains `sp1ke.dev`. |
 | Docs | `README.md` links the live site and PDFs at `https://zp1ke.github.io/cv/`, says push to `master` (line 68) while also saying push to `main` (line 7), and claims a DevContainer that is not in the tree. `README-DEV.md` documents `source dev.sh`, direnv, and `cv-*` commands; `dev.sh` and `.envrc` are absent. It requires Node.js 18+. `website/README.md` says deploy on `master` and uses `zp1ke.github.io` as the subdomain CNAME example. Real local tasks live in `mise.toml`. |
@@ -60,7 +60,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 | Phase | Scope | Status |
 |---|---|---|
 | P1 | Dependabot watches `website/` npm | completed |
-| P2 | Astro 7 lockfile, Node pin, devDependencies | not started |
+| P2 | Astro 7 lockfile, Node pin, devDependencies | completed |
 | P3 | CI npm cache path and Actions tags | not started |
 | P4 | README drift (`main`, mise, `sp1ke.dev`) | not started |
 | P5 | Forma Play privacy policy | not started |
@@ -83,18 +83,18 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P2. Upgrade Astro off locked 5.16.5
 
-**Status: not started.** `npm ci` installs `astro@5.16.5`. An in-range bump to `5.18.2` does not leave `astro <=7.4.6`. Astro 7 needs a Node pin the repo does not have yet, so the pin lands in the same phase as the upgrade.
+**Status: completed.** Registry re-check still showed `astro@7.4.13` (`engines.node >=22.23.4`) and `@astrojs/check@0.9.12` (peer `typescript@^5 || ^6`). The lockfile now has `astro@7.4.13`, `@astrojs/check@0.9.12`, and `typescript@5.9.3`. Node is pinned to `22.23.5`. `npm audit fix --force` was not used. `mise.toml` sets `NODE_ENV=production`, so the install task is `npm install --include=dev`; otherwise the checker is omitted and `astro check` cannot run.
 
 **Steps.**
 
-- [ ] Re-check `npm view astro version`, `npm view astro engines`, and `npm view @astrojs/check peerDependencies` before editing. Pick the latest `astro` release that is `>=7.4.7`.
-- [ ] Do not run `npm audit fix --force`. When this roadmap was written it proposed `astro@7.4.1`, still inside `<=7.4.6`.
-- [ ] In `website/package.json`, set `astro` to that 7.x release and move `astro`, `@astrojs/check`, and `typescript` so the checker and TypeScript are `devDependencies`.
-- [ ] Set `@astrojs/check` to a release whose peer range matches the chosen Astro line. Keep `typescript` inside that peer range (do not set `typescript@7` against `@astrojs/check@0.9.x`).
-- [ ] Add `engines.node` in `website/package.json` to the minimum declared by the chosen Astro release (`>=22.23.4` for `astro@7.4.13` at writing).
-- [ ] Set `mise.toml` `[tools] node` and `.github/workflows/deploy.yml` `node-version` to a Node 22 version that satisfies that `engines` field, not the floating major `"22"` / `'22'`.
-- [ ] From `website/`, refresh `website/package-lock.json` with `npm install` so the locked `astro` version matches the manifest.
-- [ ] Verify `npm run build` in `website/` (`astro check && astro build`) succeeds, and `npm ls astro` shows a version `>=7.4.7`.
+- [x] Re-check `npm view astro version`, `npm view astro engines`, and `npm view @astrojs/check peerDependencies` before editing. Pick the latest `astro` release that is `>=7.4.7`.
+- [x] Do not run `npm audit fix --force`. When this roadmap was written it proposed `astro@7.4.1`, still inside `<=7.4.6`.
+- [x] In `website/package.json`, set `astro` to that 7.x release and move `astro`, `@astrojs/check`, and `typescript` so the checker and TypeScript are `devDependencies`.
+- [x] Set `@astrojs/check` to a release whose peer range matches the chosen Astro line. Keep `typescript` inside that peer range (do not set `typescript@7` against `@astrojs/check@0.9.x`).
+- [x] Add `engines.node` in `website/package.json` to the minimum declared by the chosen Astro release (`>=22.23.4` for `astro@7.4.13` at writing).
+- [x] Set `mise.toml` `[tools] node` and `.github/workflows/deploy.yml` `node-version` to a Node 22 version that satisfies that `engines` field, not the floating major `"22"` / `'22'`.
+- [x] From `website/`, refresh `website/package-lock.json` with `npm install` so the locked `astro` version matches the manifest.
+- [x] Verify `npm run build` in `website/` (`astro check && astro build`) succeeds, and `npm ls astro` shows a version `>=7.4.7`.
 
 **Done when:** `website/package-lock.json` locks `astro` at `>=7.4.7`, Node is pinned to a release that satisfies that Astro `engines` field in mise, CI, and `package.json`, and `npm run build` in `website/` completes.
 
@@ -173,8 +173,8 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ## Success criteria
 
-- [ ] `website/package-lock.json` locks `astro` at `>=7.4.7`, and `npm run build` in `website/` succeeds.
-- [ ] `mise.toml`, `.github/workflows/deploy.yml`, and `website/package.json` `engines` agree on a Node 22 release that satisfies that Astro `engines` field.
+- [x] `website/package-lock.json` locks `astro` at `>=7.4.7`, and `npm run build` in `website/` succeeds.
+- [x] `mise.toml`, `.github/workflows/deploy.yml`, and `website/package.json` `engines` agree on a Node 22 release that satisfies that Astro `engines` field.
 - [x] `.github/dependabot.yml` schedules weekly npm updates for `/website` and does not list `devcontainers`.
 - [ ] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
 - [ ] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.

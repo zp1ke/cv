@@ -1,5 +1,5 @@
 [tools]
-node = "22"
+node = "22.23.5"
 python = "3.14"
 
 [env]
@@ -96,7 +96,7 @@ esac
 [tasks.install]
 description = "Install website dependencies"
 dir = "website"
-run = "npm install"
+run = "npm install --include=dev"
 
 [tasks.dev-web]
 description = "Start website development server (http://localhost:4321)"
