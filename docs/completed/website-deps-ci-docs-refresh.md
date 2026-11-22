@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: completed.** P1–P6 are done. Dependabot, the Astro 7 lockfile, CI pins, the READMEs, and the hosted privacy pages are in place. MineSweeper still has no verified data-practice text because its source was not available. Not tied to a release date.
+> **Status: completed.** P1–P6 are done. Dependabot, the Astro 7 lockfile, CI pins, the READMEs, and the hosted privacy pages are in place. The MineSweeper page was later filled from `~/Documents/github/minesweeper` and the publisher's answers. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -146,7 +146,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P6. Correct the hosted MineSweeper, AquaPact, and Teditox policies
 
-**Status: completed.** AquaPact and Teditox now match the practices named below, in English and Spanish on the same URL. Teditox's in-app link is no longer marked a placeholder. MineSweeper gap: source for `com.h4j4x.minesweeper` is not in this repo or `~/Documents/github`, so `minesweeper.astro` only says the old template was removed and does not state what the app collects, uses, or shares. It does not claim the app collects nothing. A verified MineSweeper policy still needs that source.
+**Status: completed.** AquaPact and Teditox now match the practices named below, in English and Spanish on the same URL. Teditox's in-app link is no longer marked a placeholder. MineSweeper gap closed after P6: source is `~/Documents/github/minesweeper`, confirmed as the Play build. `minesweeper.astro` now states Google sign-in, Firestore scores, Crashlytics, on-device settings, no Analytics, and no in-app deletion. Contact is `matt@sp1ke.dev`.
 
 **Steps.**
 

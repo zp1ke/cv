@@ -4,26 +4,203 @@ import PrivacyLayout from '@/layouts/PrivacyLayout.astro';
 
 <PrivacyLayout
   title="Privacy Policy for MineSweeper"
-  description="Public URL for the MineSweeper app. Data practices are not stated here because the app source was not available to check."
+  description="Privacy policy for MineSweeper. Scores are stored in Firebase when you submit them."
   appName="MineSweeper"
   lang="en"
 >
-  <h1>Privacy Policy</h1>
-  <p class="text-sm">Last updated: November 22, 2026</p>
+  <p class="text-sm">Last updated: November 22, 2026 · Actualizado: 22 de noviembre de 2026</p>
   <p>
-    This page is the public URL for the MineSweeper app, Android
-    application id <code>com.h4j4x.minesweeper</code>. It applies only
-    to that app.
+    <a href="#en">English</a>
+    ·
+    <a href="#es">Español</a>
   </p>
-  <p>
-    A generic template previously published here described practices
-    that were not checked against the app. That template has been
-    removed. The app source is not in this repository or in
-    <code>~/Documents/github</code>, so this page does not state what
-    the app collects, uses, or shares.
-  </p>
-  <h2>Contact</h2>
-  <p>
-    Questions about this page: <a href="mailto:miche.atucha@gmail.com">miche.atucha@gmail.com</a>.
-  </p>
+
+  <section id="en" lang="en">
+    <h1>Privacy Policy</h1>
+    <p>
+      This page, <code>https://sp1ke.dev/minesweeper</code>, is the privacy
+      policy for MineSweeper, Android application id
+      <code>com.h4j4x.minesweeper</code>. It applies only to that app, and
+      it describes the build currently on Google Play.
+    </p>
+    <p>
+      You can play without signing in. Signing in is optional in settings,
+      and it is requested if you choose to submit a finished game.
+    </p>
+
+    <h2>Data on the device</h2>
+    <p>
+      The app stores these settings in <code>shared_preferences</code> on
+      the device. They are not uploaded:
+    </p>
+    <ul>
+      <li>board rows, columns, and mine count</li>
+      <li>theme mode and color scheme</li>
+      <li>whether a tap explores adjacent cells</li>
+    </ul>
+
+    <h2>Sign-in and scores</h2>
+    <p>
+      Sign-in uses Google Sign-In and Firebase Authentication. The app
+      sends a Google ID token to Firebase. After sign-in it can show the
+      Firebase user's display name and email in settings. The email is not
+      written to the score records.
+    </p>
+    <p>
+      If you submit a score, Cloud Firestore stores:
+    </p>
+    <ul>
+      <li>Firebase user id</li>
+      <li>Google display name, or "-" if none is available</li>
+      <li>elapsed seconds</li>
+      <li>the time of the score</li>
+      <li>the board key, such as rows, columns, and mine count</li>
+    </ul>
+    <p>
+      The ten best times for a board are readable by the app and shown to
+      other players, with the display name and time. Your own saved times
+      are stored under your Firebase user id.
+    </p>
+    <p>
+      This version does not submit scores to Google Play Games. The release
+      manifest still contains a Play Games app id. It is not used to send
+      player data.
+    </p>
+
+    <h2>Crash reports</h2>
+    <p>
+      Firebase Crashlytics receives fatal Flutter errors, and errors from
+      Google sign-in, including the error and stack trace. Google Analytics
+      is not included in the app and is not enabled for this Firebase
+      project. The app does not show advertising.
+    </p>
+
+    <h2>Permissions</h2>
+    <p>
+      The release manifest requests <code>INTERNET</code>, which the app
+      uses for Firebase. It does not request health permissions, and the
+      app does not read Health Connect data.
+    </p>
+
+    <h2>Who receives data</h2>
+    <p>
+      Google receives the sign-in, the Firestore records, and the
+      Crashlytics reports, as the operator of those Firebase services.
+      Other players can see a display name and time that is on a board's
+      top-ten list. We do not sell the data and we do not share it with
+      advertising networks.
+    </p>
+
+    <h2>Deletion</h2>
+    <p>
+      Signing out ends the session on the device. This version cannot
+      delete the Firebase account or the scores stored in Cloud Firestore.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      The current text is this page. The date above changes when the page
+      changes.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy: <a href="mailto:matt@sp1ke.dev">matt@sp1ke.dev</a>.
+    </p>
+  </section>
+
+  <section id="es" lang="es">
+    <h1>Política de privacidad</h1>
+    <p>
+      Esta página, <code>https://sp1ke.dev/minesweeper</code>, es la
+      política de privacidad de MineSweeper, id de aplicación Android
+      <code>com.h4j4x.minesweeper</code>. Se aplica solo a esa app y
+      describe la versión que está ahora en Google Play.
+    </p>
+    <p>
+      Se puede jugar sin iniciar sesión. El inicio de sesión es opcional
+      en ajustes, y se pide si eliges enviar una partida terminada.
+    </p>
+
+    <h2>Datos en el dispositivo</h2>
+    <p>
+      La app guarda estos ajustes en <code>shared_preferences</code> en el
+      dispositivo. No se suben:
+    </p>
+    <ul>
+      <li>filas, columnas y número de minas del tablero</li>
+      <li>tema y esquema de color</li>
+      <li>si un toque explora las casillas vecinas</li>
+    </ul>
+
+    <h2>Inicio de sesión y puntuaciones</h2>
+    <p>
+      El inicio de sesión usa Google Sign-In y Firebase Authentication. La
+      app envía un token de identidad de Google a Firebase. Después puede
+      mostrar en ajustes el nombre y el email del usuario de Firebase. El
+      email no se escribe en los registros de puntuación.
+    </p>
+    <p>
+      Si envías una puntuación, Cloud Firestore guarda:
+    </p>
+    <ul>
+      <li>id de usuario de Firebase</li>
+      <li>nombre visible de Google, o "-" si no hay</li>
+      <li>segundos transcurridos</li>
+      <li>la hora de la puntuación</li>
+      <li>la clave del tablero: filas, columnas y número de minas</li>
+    </ul>
+    <p>
+      Los diez mejores tiempos de un tablero los lee la app y se muestran
+      a otros jugadores, con el nombre y el tiempo. Tus tiempos guardados
+      quedan bajo tu id de Firebase.
+    </p>
+    <p>
+      Esta versión no envía puntuaciones a Google Play Games. El manifiesto
+      de release aún contiene un id de Play Games. No se usa para enviar
+      datos del jugador.
+    </p>
+
+    <h2>Informes de fallos</h2>
+    <p>
+      Firebase Crashlytics recibe los errores fatales de Flutter y los
+      errores del inicio de sesión con Google, incluido el error y la traza.
+      Google Analytics no está en la app y no está activado en este proyecto
+      de Firebase. La app no muestra publicidad.
+    </p>
+
+    <h2>Permisos</h2>
+    <p>
+      El manifiesto de release pide <code>INTERNET</code>, que la app usa
+      para Firebase. No pide permisos de salud, y la app no lee datos de
+      Health Connect.
+    </p>
+
+    <h2>Quién recibe los datos</h2>
+    <p>
+      Google recibe el inicio de sesión, los registros de Firestore y los
+      informes de Crashlytics, como operador de esos servicios de Firebase.
+      Otros jugadores pueden ver un nombre y un tiempo que estén en la
+      lista de los diez mejores de un tablero. No vendemos los datos ni los
+      compartimos con redes publicitarias.
+    </p>
+
+    <h2>Eliminación</h2>
+    <p>
+      Cerrar sesión termina la sesión en el dispositivo. Esta versión no
+      puede borrar la cuenta de Firebase ni las puntuaciones guardadas en
+      Cloud Firestore.
+    </p>
+
+    <h2>Cambios</h2>
+    <p>
+      El texto vigente es esta página. La fecha de arriba cambia cuando
+      cambia la página.
+    </p>
+
+    <h2>Contacto</h2>
+    <p>
+      Preguntas sobre esta política: <a href="mailto:matt@sp1ke.dev">matt@sp1ke.dev</a>.
+    </p>
+  </section>
 </PrivacyLayout>
