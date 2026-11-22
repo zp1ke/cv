@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: in progress.** P1 and P2 are done: Dependabot watches npm in `/website`, and the lockfile is `astro@7.4.13` on Node `22.23.5`. Still to do: CI action pins, docs, and the Play privacy policies. Not tied to a release date.
+> **Status: in progress.** P1–P3 are done: Dependabot watches npm in `/website`, the lockfile is `astro@7.4.13` on Node `22.23.5`, and CI caches that lockfile with current Actions tags. Still to do: docs and the Play privacy policies. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -18,7 +18,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 ## Why
 
 - `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. P2 replaced locked `astro@5.16.5` (inside `astro <=7.4.6`) with `astro@7.4.13`. `npm audit` on that lockfile now reports 0 vulnerabilities.
-- Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. CI still caches `website/package.json` instead of the lockfile (P3).
+- Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. P3 pointed the npm cache at `website/package-lock.json` and bumped the four Actions pins.
 - Docs contradict the workflow and the live site config: deploy triggers on `main`, `website/astro.config.mjs` sets `site: 'https://sp1ke.dev'` and `base: '/'`, and `website/public/CNAME` is `sp1ke.dev`.
 - Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. The URL must be an active public `http://` or `https://` page with a valid SSL certificate, reachable worldwide with no login and no geofencing, shown as a normal non-editable webpage (not a PDF), specific to that app, and it must disclose how the app collects, uses, and shares user data, including the types of parties it is shared with. Forma has no such page or in-app link. The policies already hosted here do not all meet that bar.
 
@@ -30,9 +30,9 @@ Bring the website toolchain and its operator docs in line with what the repo act
 | Lockfile | `website/package-lock.json` locks `astro@7.4.13`, `@astrojs/check@0.9.12`, and `typescript@5.9.3`. |
 | Advisory | `npm audit` after the P2 install reported 0 vulnerabilities. `npm audit fix --force` was not used. |
 | Registry (at writing) | Latest `astro` was `7.4.13` (`engines.node >=22.23.4`). Latest `astro@5` was `5.18.2`. Latest `@astrojs/check` was `0.9.12`, peer `typescript@^5.0.0 \|\| ^6.0.0`. Latest `typescript` was `7.0.2`; latest 5.x was the already-locked `5.9.3`. |
-| Node pin | `mise.toml` `[tools] node = "22.23.5"`. CI `actions/setup-node@v4` uses `node-version: '22.23.5'`. `website/package.json` `engines.node` is `>=22.23.4`. |
+| Node pin | `mise.toml` `[tools] node = "22.23.5"`. CI `actions/setup-node@v7.1.0` uses `node-version: '22.23.5'`. `website/package.json` `engines.node` is `>=22.23.4`. |
 | Dependabot | `.github/dependabot.yml` schedules weekly `npm` updates for `/website`. It does not list `devcontainers`. No `.devcontainer` directory. |
-| CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `node-version` is `22.23.5`. `cache-dependency-path` is still `website/package.json`. Actions: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`. TeX Live is installed with `apt-get` on every build. |
+| CI | `.github/workflows/deploy.yml` triggers on `push` to `main` and `workflow_dispatch`. `node-version` is `22.23.5`. `cache-dependency-path` is `website/package-lock.json`. Actions: `actions/checkout@v7.0.1`, `actions/setup-node@v7.1.0`, `actions/upload-pages-artifact@v5.0.0`, `actions/deploy-pages@v5.0.1`. TeX Live is installed with `apt-get` on every build. |
 | Actions tags (at writing) | Latest releases: `actions/checkout` `v7.0.1`, `actions/setup-node` `v7.1.0`, `actions/upload-pages-artifact` `v5.0.0`, `actions/deploy-pages` `v5.0.1`. |
 | Site config | `website/astro.config.mjs` is `output: 'static'`, `site: 'https://sp1ke.dev'`, `base: '/'`. `website/public/CNAME` contains `sp1ke.dev`. |
 | Docs | `README.md` links the live site and PDFs at `https://zp1ke.github.io/cv/`, says push to `master` (line 68) while also saying push to `main` (line 7), and claims a DevContainer that is not in the tree. `README-DEV.md` documents `source dev.sh`, direnv, and `cv-*` commands; `dev.sh` and `.envrc` are absent. It requires Node.js 18+. `website/README.md` says deploy on `master` and uses `zp1ke.github.io` as the subdomain CNAME example. Real local tasks live in `mise.toml`. |
@@ -61,7 +61,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 |---|---|---|
 | P1 | Dependabot watches `website/` npm | completed |
 | P2 | Astro 7 lockfile, Node pin, devDependencies | completed |
-| P3 | CI npm cache path and Actions tags | not started |
+| P3 | CI npm cache path and Actions tags | completed |
 | P4 | README drift (`main`, mise, `sp1ke.dev`) | not started |
 | P5 | Forma Play privacy policy | not started |
 | P6 | Fix hosted MineSweeper, AquaPact, and Teditox policies | not started |
@@ -100,14 +100,14 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P3. Fix the npm cache path and bump Actions
 
-**Status: not started.** Caching currently keys off `website/package.json` while `npm ci` installs `website/package-lock.json`. Action tags are several majors behind the releases queried for this roadmap. Do this after P2 so the workflow is validated against the new lockfile.
+**Status: completed.** Re-checked tags were still `actions/checkout@v7.0.1`, `actions/setup-node@v7.1.0`, `actions/upload-pages-artifact@v5.0.0`, and `actions/deploy-pages@v5.0.1`. The workflow caches `website/package-lock.json` and still triggers on `main`.
 
 **Steps.**
 
-- [ ] In `.github/workflows/deploy.yml`, change `cache-dependency-path` from `website/package.json` to `website/package-lock.json`.
-- [ ] Re-check the latest release tags for `actions/checkout`, `actions/setup-node`, `actions/upload-pages-artifact`, and `actions/deploy-pages` (at writing: `v7.0.1`, `v7.1.0`, `v5.0.0`, `v5.0.1`).
-- [ ] Bump those four `uses:` pins in `.github/workflows/deploy.yml` to the re-checked tags. Leave `on.push.branches` as `[main]`.
-- [ ] Verify the workflow file no longer contains `cache-dependency-path: website/package.json` or the old pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, and `actions/deploy-pages@v4`.
+- [x] In `.github/workflows/deploy.yml`, change `cache-dependency-path` from `website/package.json` to `website/package-lock.json`.
+- [x] Re-check the latest release tags for `actions/checkout`, `actions/setup-node`, `actions/upload-pages-artifact`, and `actions/deploy-pages` (at writing: `v7.0.1`, `v7.1.0`, `v5.0.0`, `v5.0.1`).
+- [x] Bump those four `uses:` pins in `.github/workflows/deploy.yml` to the re-checked tags. Leave `on.push.branches` as `[main]`.
+- [x] Verify the workflow file no longer contains `cache-dependency-path: website/package.json` or the old pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, and `actions/deploy-pages@v4`.
 
 **Done when:** `deploy.yml` caches `website/package-lock.json`, pins the four Actions at the re-checked latest tags, and still deploys on push to `main`.
 
@@ -176,7 +176,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 - [x] `website/package-lock.json` locks `astro` at `>=7.4.7`, and `npm run build` in `website/` succeeds.
 - [x] `mise.toml`, `.github/workflows/deploy.yml`, and `website/package.json` `engines` agree on a Node 22 release that satisfies that Astro `engines` field.
 - [x] `.github/dependabot.yml` schedules weekly npm updates for `/website` and does not list `devcontainers`.
-- [ ] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
+- [x] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
 - [ ] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.
 - [ ] `website/src/pages/forma.astro` exists, Forma links to `https://sp1ke.dev/forma`, and the page discloses on-device data, export, and the release permissions without claiming analytics or accounts.
 - [ ] `minesweeper.astro` no longer asserts unverified name, usage-data, IP, or Google-login collection. `aquapact.astro` has no "New Feature" filler. `teditox.astro` states that the release manifest does not request `INTERNET`.
