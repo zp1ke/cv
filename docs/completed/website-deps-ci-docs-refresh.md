@@ -1,6 +1,6 @@
 # Website dependency, CI, docs, and Play privacy policies
 
-> **Status: in progress.** P1–P5 are done, including the Forma privacy page at `https://sp1ke.dev/forma` and the in-app link. Still to do: correct the MineSweeper, AquaPact, and Teditox policies. Not tied to a release date.
+> **Status: completed.** P1–P6 are done. Dependabot, the Astro 7 lockfile, CI pins, the READMEs, and the hosted privacy pages are in place. MineSweeper still has no verified data-practice text because its source was not available. Not tied to a release date.
 
 Registry versions below were queried when this roadmap was written. Re-check them before editing manifests; do not treat them as permanent targets if a newer patch has shipped.
 
@@ -20,7 +20,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 - `npm ci` in `.github/workflows/deploy.yml` installs the lockfile, not the floating ranges in `website/package.json`. P2 replaced locked `astro@5.16.5` (inside `astro <=7.4.6`) with `astro@7.4.13`. `npm audit` on that lockfile now reports 0 vulnerabilities.
 - Dependabot used to list only `package-ecosystem: devcontainers` at `/`, and there is no `.devcontainer`. P1 replaced that with weekly `npm` updates for `/website`. P3 pointed the npm cache at `website/package-lock.json` and bumped the four Actions pins.
 - The READMEs used to describe `master`, `dev.sh`, a missing DevContainer, and `https://zp1ke.github.io/cv/`. P4 aligned them with deploy on `main`, `mise.toml`, and `https://sp1ke.dev`.
-- Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. The URL must be an active public `http://` or `https://` page with a valid SSL certificate, reachable worldwide with no login and no geofencing, shown as a normal non-editable webpage (not a PDF), specific to that app, and it must disclose how the app collects, uses, and shares user data, including the types of parties it is shared with. P5 added `https://sp1ke.dev/forma` and an in-app link. The other hosted policies still do not all meet that bar (P6).
+- Google Play requires a privacy-policy URL on the store listing and inside the app, even when the app does not access personal or sensitive data and does not target children. P5 added `https://sp1ke.dev/forma` and an in-app link. P6 corrected AquaPact and Teditox. MineSweeper's source was not available, so that page no longer repeats the old template and does not invent a replacement.
 
 ## Current state
 
@@ -38,7 +38,7 @@ Bring the website toolchain and its operator docs in line with what the repo act
 | Docs | `README.md`, `README-DEV.md`, and `website/README.md` describe deploy on `main`, the live host `https://sp1ke.dev`, and `mise.toml` tasks. Node is documented as `22.23.5`. They do not tell the reader to source `dev.sh` or use a DevContainer. |
 | Privacy pages | Astro routes: `website/src/pages/forma.astro` (`/forma`), `minesweeper.astro`, `aquapact.astro`, and `teditox.astro`, wrapped by `website/src/layouts/PrivacyLayout.astro`. Pages are HTML, not PDFs. Public Forma URL is `https://sp1ke.dev/forma`. |
 | Forma | App repo `~/Documents/github/forma`. `applicationId` is `com.sp1ke.forma`. `lib/ui/core/forma_privacy_policy.dart` opens `https://sp1ke.dev/forma` via `url_launcher`. Release manifest still requests only `RECEIVE_BOOT_COMPLETED` and `SCHEDULE_EXACT_ALARM`, plus an `https` VIEW query so a browser can be found. `INTERNET` remains debug and profile only. |
-| Existing policy gaps | `minesweeper.astro` is a generic template (last updated July 13, 2024). It asserts accounts, affiliates, first and last name, usage data, IP address, device IDs, Google login, and sharing with other users. MineSweeper source is not in this repo or `~/Documents/github`. `aquapact.astro` (February 12, 2025) describes local hydration data and no third-party sharing, but includes a non-disclosure bullet ("New Feature: Future updates may include additional features") and says changes are posted within the app rather than on this URL. `teditox.astro` (August 12, 2025) matches local files and settings, but does not state that the release manifest has no `INTERNET` permission. Teditox already opens `https://sp1ke.dev/teditox` from `about_screen.dart`, under a comment that still says "placeholder". All three contact `miche.atucha@gmail.com`. `PrivacyLayout.astro` renders an English-only slot. |
+| Existing policies | AquaPact and Teditox pages state `https://sp1ke.dev/aquapact` and `https://sp1ke.dev/teditox` as the policy, in English and Spanish. AquaPact no longer has the "New Feature" bullet. Teditox states that the release manifest does not request `INTERNET`, and files leave the device only if the user shares them. The Teditox in-app link is no longer marked a placeholder. MineSweeper source is still not in this repo or `~/Documents/github`. `minesweeper.astro` no longer asserts the old template's collection claims and does not claim that the app collects nothing. Contact remains `miche.atucha@gmail.com`. |
 
 ## Target
 
@@ -64,7 +64,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 | P3 | CI npm cache path and Actions tags | completed |
 | P4 | README drift (`main`, mise, `sp1ke.dev`) | completed |
 | P5 | Forma Play privacy policy | completed |
-| P6 | Fix hosted MineSweeper, AquaPact, and Teditox policies | not started |
+| P6 | Fix hosted MineSweeper, AquaPact, and Teditox policies | completed |
 
 ## Phases
 
@@ -146,17 +146,17 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 
 ### P6. Correct the hosted MineSweeper, AquaPact, and Teditox policies
 
-**Status: not started.** The same Play rules apply to the policies already on this site. AquaPact and Teditox are close. MineSweeper is a generic template and must not stay that way. Do this after P5 so the Forma page is the pattern.
+**Status: completed.** AquaPact and Teditox now match the practices named below, in English and Spanish on the same URL. Teditox's in-app link is no longer marked a placeholder. MineSweeper gap: source for `com.h4j4x.minesweeper` is not in this repo or `~/Documents/github`, so `minesweeper.astro` only says the old template was removed and does not state what the app collects, uses, or shares. It does not claim the app collects nothing. A verified MineSweeper policy still needs that source.
 
 **Steps.**
 
-- [ ] In `website/src/pages/minesweeper.astro`, remove unverified template claims: Account, Affiliate, first and last name, Usage Data, IP address, device identifiers, Google login, and sharing with other users. Do not replace them with a "collects nothing" claim unless the `com.h4j4x.minesweeper` app is checked. Its source is not in this repo or `~/Documents/github`.
-- [ ] If MineSweeper source cannot be inspected, stop that page at a factual gap note in this roadmap and do not publish invented collection or non-collection language.
-- [ ] In `website/src/pages/aquapact.astro`, delete the "New Feature: Future updates may include additional features" bullet. State that `https://sp1ke.dev/aquapact` is the policy, not only a copy posted inside the app. Keep the local hydration, notification-time, and no-third-party statements already there.
-- [ ] In `website/src/pages/teditox.astro`, state that the release `android/app/src/main/AndroidManifest.xml` in `~/Documents/github/teditox` requests no `INTERNET` permission (`INTERNET` is only in the debug and profile manifests), and that files leave the device only if the user shares them.
-- [ ] In `~/Documents/github/teditox/lib/src/features/settings/presentation/about_screen.dart`, remove the "Privacy Policy link (placeholder)" comment. The tap already opens `https://sp1ke.dev/teditox`.
-- [ ] Add a Spanish section to the AquaPact and Teditox pages on the same URL. Teditox already has Spanish strings for the privacy-policy link. Leave MineSweeper English-only until its behavior is verified.
-- [ ] Verify the three pages are still HTML routes under `website/src/pages/`, still use `PrivacyLayout`, and `minesweeper.astro` no longer contains "Third-party Social Media" or "First name and last name".
+- [x] In `website/src/pages/minesweeper.astro`, remove unverified template claims: Account, Affiliate, first and last name, Usage Data, IP address, device identifiers, Google login, and sharing with other users. Do not replace them with a "collects nothing" claim unless the `com.h4j4x.minesweeper` app is checked. Its source is not in this repo or `~/Documents/github`.
+- [x] If MineSweeper source cannot be inspected, stop that page at a factual gap note in this roadmap and do not publish invented collection or non-collection language.
+- [x] In `website/src/pages/aquapact.astro`, delete the "New Feature: Future updates may include additional features" bullet. State that `https://sp1ke.dev/aquapact` is the policy, not only a copy posted inside the app. Keep the local hydration, notification-time, and no-third-party statements already there.
+- [x] In `website/src/pages/teditox.astro`, state that the release `android/app/src/main/AndroidManifest.xml` in `~/Documents/github/teditox` requests no `INTERNET` permission (`INTERNET` is only in the debug and profile manifests), and that files leave the device only if the user shares them.
+- [x] In `~/Documents/github/teditox/lib/src/features/settings/presentation/about_screen.dart`, remove the "Privacy Policy link (placeholder)" comment. The tap already opens `https://sp1ke.dev/teditox`.
+- [x] Add a Spanish section to the AquaPact and Teditox pages on the same URL. Teditox already has Spanish strings for the privacy-policy link. Leave MineSweeper English-only until its behavior is verified.
+- [x] Verify the three pages are still HTML routes under `website/src/pages/`, still use `PrivacyLayout`, and `minesweeper.astro` no longer contains "Third-party Social Media" or "First name and last name".
 
 **Done when:** AquaPact and Teditox policies match the practices named above, Teditox's in-app link is no longer marked a placeholder, and MineSweeper no longer asserts unverified collection. Play Console edits for those listings are not part of this phase.
 
@@ -179,7 +179,7 @@ Track progress with task lists: `[ ]` not started, `[x]` done. Update this table
 - [x] `.github/workflows/deploy.yml` caches `website/package-lock.json` and no longer pins `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, or `actions/deploy-pages@v4`.
 - [x] `README.md`, `README-DEV.md`, and `website/README.md` match `main`, mise, and `https://sp1ke.dev`, with no `dev.sh` or DevContainer setup steps.
 - [x] `website/src/pages/forma.astro` exists, Forma links to `https://sp1ke.dev/forma`, and the page discloses on-device data, export, and the release permissions without claiming analytics or accounts.
-- [ ] `minesweeper.astro` no longer asserts unverified name, usage-data, IP, or Google-login collection. `aquapact.astro` has no "New Feature" filler. `teditox.astro` states that the release manifest does not request `INTERNET`.
+- [x] `minesweeper.astro` no longer asserts unverified name, usage-data, IP, or Google-login collection. `aquapact.astro` has no "New Feature" filler. `teditox.astro` states that the release manifest does not request `INTERNET`.
 
 ## Explicitly not in scope
 

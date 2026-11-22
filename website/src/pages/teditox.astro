@@ -8,80 +8,157 @@ import PrivacyLayout from '@/layouts/PrivacyLayout.astro';
   appName="Teditox"
   lang="en"
 >
-  <h1>Privacy Policy</h1>
-  <p class="text-sm">Last updated: August 12, 2025</p>
+  <p class="text-sm">Last updated: November 22, 2026 · Actualizado: 22 de noviembre de 2026</p>
   <p>
-    Teditox ("we", "our", "us") is a text editor app
-    designed to help you edit text files on your device. This
-    Privacy Policy explains how we handle your data when you use
-    Teditox.
+    <a href="#en">English</a>
+    ·
+    <a href="#es">Español</a>
   </p>
-  <h2>
-    Data Collection and Usage
-  </h2>
-  <p>
-    Teditox does not require user authentication and does not
-    collect any personal information. All data related to your edited files, app settings, and recent files list are
-    stored locally on your device.
-  </p>
-  <h3>
-    Local Data Storage
-  </h3>
-  <ul>
-    <li>
-      <p>
-        <strong>Edited Files:</strong>
-        &nbsp;The text files you edit are stored locally on your device in your chosen locations.
-      </p>
-    </li>
-    <li>
-      <p>
-        <strong>App Settings:</strong>
-        &nbsp;Your app settings (e.g., theme, font size) are stored locally to
-        personalize your editing experience.
-      </p>
-    </li>
-    <li>
-      <p>
-        <strong>Recent Files List:</strong>
-        &nbsp;A list of recently opened files is stored locally for quick access.
-      </p>
-    </li>
-  </ul>
-  <h2>
-    Data Sharing
-  </h2>
-  <p>
-    Teditox does not share your data with any third parties. All
-    data remains on your device and is not transmitted to any
-    external servers or services, unless you explicitly choose to share files using your device's sharing functionalities.
-  </p>
-  <h2>
-    Data Security
-  </h2>
-  <p>
-    We prioritize the security of your data. Since all data is
-    stored locally on your device, it is protected by your device's
-    security measures. We recommend using a secure password or
-    biometric authentication to protect your device.
-  </p>
-  <h2>
-    Changes to This Privacy Policy
-  </h2>
-  <p>
-    We may update this Privacy Policy from time to time. Any changes
-    will be posted within the app, and we encourage you to review
-    this policy periodically.
-  </p>
-  <h2>
-    Contact Us
-  </h2>
-  <p>
-    If you have any questions or concerns about this Privacy Policy,
-    please contact us at miche.atucha@gmail.com.
-  </p>
-  <p>
-    By using Teditox, you agree to the terms of this Privacy
-    Policy.
-  </p>
+
+  <section id="en" lang="en">
+    <h1>Privacy Policy</h1>
+    <p>
+      This page, <code>https://sp1ke.dev/teditox</code>, is the privacy
+      policy for Teditox.
+    </p>
+    <p>
+      Teditox ("we", "our", "us") is a text editor app designed to help
+      you edit text files on your device. This policy explains how we
+      handle your data when you use Teditox.
+    </p>
+    <h2>Data Collection and Usage</h2>
+    <p>
+      Teditox does not require user authentication and does not collect
+      any personal information. Edited files, app settings, and the
+      recent-files list are stored locally on your device.
+    </p>
+    <h3>Local Data Storage</h3>
+    <ul>
+      <li>
+        <p>
+          <strong>Edited Files:</strong>
+          The text files you edit stay in the locations you choose on
+          your device. They leave the device only if you share them
+          yourself.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>App Settings:</strong>
+          Settings such as theme and font size are stored locally.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Recent Files List:</strong>
+          A list of recently opened files is stored locally for quick
+          access.
+        </p>
+      </li>
+    </ul>
+    <h2>Network</h2>
+    <p>
+      The release Android manifest,
+      <code>android/app/src/main/AndroidManifest.xml</code> in the
+      Teditox project, does not request the <code>INTERNET</code>
+      permission. Debug and profile builds request <code>INTERNET</code>
+      so the Flutter tool can connect to the running app. Those builds
+      are not the Play release.
+    </p>
+    <h2>Data Sharing</h2>
+    <p>
+      Teditox does not share your data with any third parties. Data
+      remains on your device and is not transmitted to external servers
+      or services, unless you explicitly share files using your device's
+      sharing functions.
+    </p>
+    <h2>Data Security</h2>
+    <p>
+      Since the data is stored locally, it is protected by your device's
+      security measures. We recommend a secure password or biometric
+      authentication on the device.
+    </p>
+    <h2>Changes</h2>
+    <p>
+      We may update this policy from time to time. The current text is
+      this page. Review it periodically.
+    </p>
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy: <a href="mailto:miche.atucha@gmail.com">miche.atucha@gmail.com</a>.
+    </p>
+  </section>
+
+  <section id="es" lang="es">
+    <h1>Política de privacidad</h1>
+    <p>
+      Esta página, <code>https://sp1ke.dev/teditox</code>, es la política
+      de privacidad de Teditox.
+    </p>
+    <p>
+      Teditox ("nosotros") es un editor de texto para archivos en tu
+      dispositivo. Esta política explica cómo tratamos tus datos cuando
+      usas Teditox.
+    </p>
+    <h2>Recogida y uso de datos</h2>
+    <p>
+      Teditox no exige autenticación y no recoge información personal.
+      Los archivos editados, los ajustes y la lista de archivos recientes
+      se guardan en el dispositivo.
+    </p>
+    <h3>Almacenamiento local</h3>
+    <ul>
+      <li>
+        <p>
+          <strong>Archivos editados:</strong>
+          permanecen en las ubicaciones que eliges. Salen del dispositivo
+          solo si tú los compartes.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Ajustes:</strong>
+          el tema, el tamaño de letra y el resto de ajustes se guardan
+          en el dispositivo.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Archivos recientes:</strong>
+          la lista se guarda en el dispositivo para abrirlos rápido.
+        </p>
+      </li>
+    </ul>
+    <h2>Red</h2>
+    <p>
+      El manifiesto Android de release,
+      <code>android/app/src/main/AndroidManifest.xml</code> del proyecto
+      Teditox, no pide el permiso <code>INTERNET</code>. Las
+      compilaciones debug y profile sí lo piden para que la herramienta
+      de Flutter se conecte a la app en ejecución. Esas compilaciones no
+      son la release de Play.
+    </p>
+    <h2>Cesión</h2>
+    <p>
+      Teditox no comparte tus datos con terceros. Los datos permanecen
+      en el dispositivo y no se transmiten a servidores o servicios
+      externos, salvo que compartas archivos con las funciones del
+      propio dispositivo.
+    </p>
+    <h2>Seguridad</h2>
+    <p>
+      Como los datos están en el dispositivo, los protegen sus medidas de
+      seguridad. Recomendamos una contraseña segura o autenticación
+      biométrica en el dispositivo.
+    </p>
+    <h2>Cambios</h2>
+    <p>
+      Podemos actualizar esta política. El texto vigente es esta página.
+      Revísala de vez en cuando.
+    </p>
+    <h2>Contacto</h2>
+    <p>
+      Preguntas sobre esta política: <a href="mailto:miche.atucha@gmail.com">miche.atucha@gmail.com</a>.
+    </p>
+  </section>
 </PrivacyLayout>
