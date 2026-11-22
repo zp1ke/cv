@@ -1,0 +1,241 @@
+---
+import PrivacyLayout from '@/layouts/PrivacyLayout.astro';
+---
+
+<PrivacyLayout
+  title="Privacy Policy for Forma"
+  description="Privacy policy for the Forma app. Data stays on the device."
+  appName="Forma"
+  lang="en"
+>
+  <p class="text-sm">Last updated: November 22, 2026 · Actualizado: 22 de noviembre de 2026</p>
+  <p>
+    <a href="#en">English</a>
+    ·
+    <a href="#es">Español</a>
+  </p>
+
+  <section id="en" lang="en">
+    <h1>Privacy Policy</h1>
+    <p>
+      This policy applies only to the Forma app, Android application id
+      <code>com.sp1ke.forma</code>. It does not cover any other app.
+    </p>
+    <p>
+      Forma stores routines, workout logs, and body measurements on the
+      device. It does not ask you to sign in. It does not show
+      advertising. It does not send usage statistics. We do not run a
+      server that receives your records.
+    </p>
+
+    <h2>Data stored on the device</h2>
+    <p>
+      Records are kept in a local SQLite database (<code>sqflite</code>).
+      Theme mode and the last selected profile id are kept in
+      <code>shared_preferences</code>. Nothing in those stores is uploaded
+      to us.
+    </p>
+    <ul>
+      <li>
+        <p>
+          <strong>Profiles:</strong>
+          name, color, weight unit, length unit, quiet-hour clocks, and
+          created time.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Routines:</strong>
+          the plan you save, including exercise text and any link or file
+          you attach. An <code>http</code> or <code>https</code> link is
+          stored as text. Forma does not download it. A local file is
+          copied into the app's storage.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Session logs:</strong>
+          date, start and end, a copy of the routine as it was when you
+          saved the session, and the numbers you logged.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Body entries:</strong>
+          date, optional weight, neck, shoulders, chest, waist, hips,
+          thigh, calf, upper arm, and a note. Forma does not calculate
+          body-fat or BMI.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Reminders:</strong>
+          whether a reminder is on, its time, and its weekdays.
+        </p>
+      </li>
+    </ul>
+
+    <h2>Permissions</h2>
+    <p>
+      The release Android manifest requests
+      <code>RECEIVE_BOOT_COMPLETED</code>, so reminders can be scheduled
+      again after a reboot, and <code>SCHEDULE_EXACT_ALARM</code>, so a
+      reminder can fire at the chosen time. When a reminder is first
+      scheduled, the app asks for notification permission and, if needed,
+      exact-alarm permission. That request is in
+      <code>lib/data/services/android_alert_notifier.dart</code>.
+    </p>
+    <p>
+      The release manifest does not request <code>INTERNET</code>. Debug
+      and profile builds request <code>INTERNET</code> so the Flutter tool
+      can connect to the running app. Those builds are not the Play
+      release.
+    </p>
+    <p>
+      The in-app privacy control hands <code>https://sp1ke.dev/forma</code>
+      to your browser. Forma does not attach profiles, logs, or
+      measurements to that request.
+    </p>
+
+    <h2>Sharing</h2>
+    <p>
+      We do not share your data with third parties. There is no advertising
+      network, no statistics vendor, and no cloud host receiving these
+      records.
+    </p>
+    <p>
+      You can export a profile to a file you pick, saved as
+      <code>forma-export.zip</code>. You can copy or share that file
+      yourself. We do not receive it.
+    </p>
+
+    <h2>Retention</h2>
+    <p>
+      Data remains on the device until you delete it in the app or
+      uninstall Forma. An export file remains wherever you saved it.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      This page, <code>https://sp1ke.dev/forma</code>, is the policy. When
+      it changes, the date above changes with it.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy: <a href="mailto:miche.atucha@gmail.com">miche.atucha@gmail.com</a>.
+    </p>
+  </section>
+
+  <section id="es" lang="es">
+    <h1>Política de privacidad</h1>
+    <p>
+      Esta política se aplica solo a la app Forma, id de aplicación Android
+      <code>com.sp1ke.forma</code>. No cubre ninguna otra app.
+    </p>
+    <p>
+      Forma guarda rutinas, registros de entrenamiento y medidas corporales
+      en el dispositivo. No pide iniciar sesión. No muestra publicidad. No
+      envía estadísticas de uso. No operamos un servidor que reciba tus
+      registros.
+    </p>
+
+    <h2>Datos guardados en el dispositivo</h2>
+    <p>
+      Los registros están en una base SQLite local (<code>sqflite</code>).
+      El tema y el id del último perfil elegido están en
+      <code>shared_preferences</code>. Nada de eso se sube a nosotros.
+    </p>
+    <ul>
+      <li>
+        <p>
+          <strong>Perfiles:</strong>
+          nombre, color, unidad de peso, unidad de longitud, horas de
+          silencio y fecha de creación.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Rutinas:</strong>
+          el plan que guardas, incluido el texto de los ejercicios y
+          cualquier enlace o archivo que adjuntes. Un enlace
+          <code>http</code> o <code>https</code> se guarda como texto.
+          Forma no lo descarga. Un archivo local se copia al
+          almacenamiento de la app.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Registros de sesión:</strong>
+          fecha, inicio y fin, una copia de la rutina tal como estaba al
+          guardar la sesión, y los números que anotaste.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Entradas corporales:</strong>
+          fecha, peso opcional, cuello, hombros, pecho, cintura, cadera,
+          muslo, pantorrilla, brazo y una nota. Forma no calcula grasa
+          corporal ni IMC.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Recordatorios:</strong>
+          si está activo, su hora y sus días de la semana.
+        </p>
+      </li>
+    </ul>
+
+    <h2>Permisos</h2>
+    <p>
+      El manifiesto Android de release pide
+      <code>RECEIVE_BOOT_COMPLETED</code>, para volver a programar
+      recordatorios tras un reinicio, y <code>SCHEDULE_EXACT_ALARM</code>,
+      para que un recordatorio suene a la hora elegida. Al programar un
+      recordatorio por primera vez, la app pide permiso de notificaciones
+      y, si hace falta, de alarmas exactas. Esa petición está en
+      <code>lib/data/services/android_alert_notifier.dart</code>.
+    </p>
+    <p>
+      El manifiesto de release no pide <code>INTERNET</code>. Las
+      compilaciones debug y profile sí lo piden para que la herramienta de
+      Flutter se conecte a la app en ejecución. Esas compilaciones no son
+      la release de Play.
+    </p>
+    <p>
+      El control de privacidad dentro de la app entrega
+      <code>https://sp1ke.dev/forma</code> a tu navegador. Forma no adjunta
+      perfiles, registros ni medidas a esa petición.
+    </p>
+
+    <h2>Cesión</h2>
+    <p>
+      No compartimos tus datos con terceros. No hay red publicitaria,
+      proveedor de estadísticas ni servidor en la nube que reciba estos
+      registros.
+    </p>
+    <p>
+      Puedes exportar un perfil a un archivo que eliges, guardado como
+      <code>forma-export.zip</code>. Puedes copiar o compartir ese archivo
+      tú mismo. Nosotros no lo recibimos.
+    </p>
+
+    <h2>Conservación</h2>
+    <p>
+      Los datos siguen en el dispositivo hasta que los borras en la app o
+      desinstalas Forma. Un archivo exportado permanece donde lo guardaste.
+    </p>
+
+    <h2>Cambios</h2>
+    <p>
+      Esta página, <code>https://sp1ke.dev/forma</code>, es la política.
+      Si cambia, cambia también la fecha de arriba.
+    </p>
+
+    <h2>Contacto</h2>
+    <p>
+      Preguntas sobre esta política: <a href="mailto:miche.atucha@gmail.com">miche.atucha@gmail.com</a>.
+    </p>
+  </section>
+</PrivacyLayout>
